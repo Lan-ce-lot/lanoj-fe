@@ -1,5 +1,5 @@
 import React from "react";
-import {RouteObject, useRoutes} from "react-router-dom";
+import {Navigate, RouteObject, useRoutes} from "react-router-dom";
 import Error from "../pages/admin/404/Error";
 import {commonRouter} from "./common";
 import Login from '../pages/common/Login'
@@ -8,6 +8,7 @@ import Register from "../pages/common/Register";
 import adminRouter from "./admin";
 import Test from "../pages/common/test";
 import ProblemLayout from "../layout/problem/ProblemLayout";
+import ProblemDetail from "../pages/common/problem/problemDetail";
 
 
 const router: any[] = [
@@ -29,7 +30,21 @@ const router: any[] = [
         path: ":id",
         element: <Test/>
       },
-
+    ]
+  },
+  {
+    path: "/problem",
+    element: <ProblemLayout/>,
+    children: [
+      {
+        index: true,
+        element: <Navigate to={"/problems"}/>,
+        // element: <ProblemDetail/>
+      },
+      {
+        path: ":id",
+        element: <ProblemDetail/>
+      },
     ]
   },
   {

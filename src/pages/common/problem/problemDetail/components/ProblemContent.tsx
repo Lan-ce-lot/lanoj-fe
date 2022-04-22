@@ -22,21 +22,23 @@ import {connect} from "react-redux";
 //import styles from './ProblemContent.module.scss'
 
 interface IProps {
-  loading?: boolean;
 }
 
 interface IState {
 
 }
 
-const ProblemContent: React.FC<IProps> = ({loading}) => {
+const ProblemContent: React.FC<IProps> = ({}) => {
   let {id} = useParams();
+  const [loading, setLoading] = useState(false);
   const [problem, setProblem] = useState<IProblem>(initProblem)
   const [modalVisible, setModalVisible] = useState(false);
   const fetchData = () => {
+    setLoading(true)
     getProblemDetail(Number(id)).then((res) => {
       const {data} = res.data
       setProblem(data)
+      setLoading(false)
     })
   }
   useEffect(() => {
@@ -96,16 +98,5 @@ const ProblemContent: React.FC<IProps> = ({loading}) => {
     </Skeleton>
   </>)
 }
-const mapStateToProps = (state: any) => {
-  return {
-    ...state.app,
-  };
-};
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    setLoading(loading: boolean) {
-      dispatch(changeLoading(loading))
-    }
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(ProblemContent);
+
+export default ProblemContent;

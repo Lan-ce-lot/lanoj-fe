@@ -2,12 +2,12 @@ import React, {Fragment, useEffect, useState} from "react";
 import {Outlet, useLocation} from 'react-router-dom'
 import {Layout} from 'antd'
 // import { enquireScreen, unenquireScreen } from 'enquire.js'
-import CommonBackTop from "../../components/common/commonBackTop/CommonBackTop";
-import AdminHeader from "../../components/admin/adminHeader/AdminHeader";
-import Sider from "../../components/admin/sider/Sider";
+import CommonBackTop from "../common/commonBackTop/CommonBackTop";
+import AdminHeader from "./adminHeader/AdminHeader";
+import Sider from "./sider/Sider";
 import styles from './AdminLayout.module.scss'
-import Bread from "../../components/admin/bread/Bread";
-import Footer from "../../components/admin/adminFooter/Footer";
+import Bread from "./bread/Bread";
+import Footer from "./adminFooter/Footer";
 import Error from '../../pages/admin/404/Error'
 import BreadCrumb from "../../components/BreadCrumb";
 import Loading from "../../components/Loading";

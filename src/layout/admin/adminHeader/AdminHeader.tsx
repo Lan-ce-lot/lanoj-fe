@@ -20,7 +20,7 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {toggleSiderBar} from '../../../store/actions'
 import {Link} from "react-router-dom";
-import BreadCrumb from "../../BreadCrumb";
+import BreadCrumb from "../../../components/BreadCrumb";
 const { SubMenu } = Menu
 
 interface AdminHeaderProps {

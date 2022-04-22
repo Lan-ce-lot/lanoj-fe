@@ -6,7 +6,7 @@
  */
 import React, {Fragment, useEffect, useState} from "react";
 import {Button, Col, Form, Input, message, Row} from "antd";
-import GlobalFooter from "../../../components/common/footer/Footer";
+import GlobalFooter from "../../../layout/common/footer/Footer";
 
 import styles from './index.module.scss'
 import {Link, useNavigate} from "react-router-dom";

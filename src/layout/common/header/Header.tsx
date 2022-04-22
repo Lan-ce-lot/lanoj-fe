@@ -23,11 +23,11 @@ import Context from "../../../utils/createContext";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {userLogin} from '../../../store/actions'
-import {delUserToken} from "../../../store/actions/";
+import {delUserToken} from "../../../store/actions";
 import {parseToken} from "../../../utils/jwt";
 import Cookies from "js-cookie";
 import {getUserInfo} from "../../../api/common/userInfo";
-import Logo from "../../Logo/Logo";
+import Logo from "../../../components/Logo/Logo";
 import {IUser} from "../../../api/admin/user";
 
 const {SubMenu} = Menu
@@ -151,12 +151,12 @@ const Header: React.FC<HeaderProps> = ({onDelUserToken, token}) => {
               <Menu mode="horizontal">
                 <Menu.Item className="common-menu-item" key="/home" icon={<HomeOutlined/>}
                 >
-                  <Link to={'/'}>
+                  <Link to={'/home'}>
                     首页
                   </Link>
                 </Menu.Item>
                 <Menu.Item className="common-menu-item" key="problem" icon={<AppstoreOutlined/>}>
-                  <Link to={'/problem'}>
+                  <Link to={'/problems'}>
                     题库
                   </Link>
                 </Menu.Item>

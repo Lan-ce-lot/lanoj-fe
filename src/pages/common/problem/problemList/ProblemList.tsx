@@ -48,7 +48,7 @@ const ProblemList: React.FunctionComponent<ProblemHomeProps> = (props) => {
       title: '题目',
       dataIndex: 'name',
       render: (text: any, record: any) => (
-        <Link to={`/problem/detail/${record.id}`}>
+        <Link to={`/problem/${record.id}`}>
           {record.name}
         </Link>
       )

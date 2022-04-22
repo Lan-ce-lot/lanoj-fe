@@ -5,13 +5,13 @@
  * @Date: 2022/4/18 0:56
  */
 import React, {useState} from "react";
-import {Card, Radio, Tabs} from "antd";
+import {Card, Menu, Radio, Tabs} from "antd";
 import Split from "@uiw/react-split";
 import Editor from "../problem/problemDetail/components/Editor";
 import ProblemContent from "../problem/problemDetail/components/ProblemContent";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {CalendarOutlined} from "@ant-design/icons";
-import ScrollBar from "../../../components/admin/ScrollBar";
+import ScrollBar from "../../../layout/admin/ScrollBar";
 
 const {TabPane} = Tabs;
 
@@ -50,20 +50,37 @@ const Test: React.FC<IProps> = ({}) => {
         style={{height: "100%", border: '1px solid #d5d5d5', borderRadius: 3}}>
         <div style={{
           ...styl,
-          width:width,
+          width: width,
           height: "100%",
           // minWidth: 30,
           overflow: 'hidden'
         }}>
+          <Menu mode="horizontal">
+            <Menu.Item key="mail">
+              <Link to={'/class'}>
+                题目详情
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="app">
+              <Link to={'/class/list'}>
+                我的提交
+              </Link>
+            </Menu.Item>
+          </Menu>
           <Card
+            size={'small'}
             style={{
-              height: "100%",
+              // height: "100%",
+              height: "calc(100% - 45px)",
               overflowX: "auto",
+              // backgroundColor: '#fff',
+              // padding:'12px',
               // maxHeight: "calc(100vh - 65px)"
             }}
           >
             <ProblemContent/>
           </Card>
+
         </div>
         <div style={{
           flex: 1, height: "100%", minWidth: "45%",

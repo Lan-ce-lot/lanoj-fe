@@ -35,6 +35,7 @@ import ExerciseRank from "../pages/common/class/ClassHome/Exercise/Detail/compon
 import ExerciseProblemList from "../pages/common/class/ClassHome/Exercise/Detail/components/ExerciseProblemList";
 import ExerciseProblem from "../pages/common/class/ClassHome/Exercise/Detail/components/Problem/ExerciseProblem";
 import Test from "../pages/common/test";
+import ProblemLayout from "../layout/problem/ProblemLayout";
 
 // const commonRouterMenuList:RouteObject[] = {
 //
@@ -53,26 +54,28 @@ export const commonRouter: RouteObject = {
       element: <Home/>
     },
     {
-      path: "/problem",
-      children: [
-        {
-          index: true,
-          element: <Navigate to={"/problem/list"}/>,
-        },
-        {
-          path: "list",
-          element: <ProblemList/>
-        },
-        {
-          path: "detail/:id",
-          element: <ProblemDetail/>,
-        },
-        {
-          path: "detail/:id/submission",
-          element: <ProblemSubmissions/>
-        }
-      ]
+      path: "/problems",
+      element: <ProblemList/>
+      // children: [
+      //   {
+      //     index: true,
+      //     element: <Navigate to={"/problem/list"}/>,
+      //   },
+      //   {
+      //     path: "list",
+      //     element: <ProblemList/>
+      //   },
+      //   // {
+      //   //   path: "detail/:id",
+      //   //   element: <ProblemDetail/>,
+      //   // },
+      //   // {
+      //   //   path: "detail/:id/submission",
+      //   //   element: <ProblemSubmissions/>
+      //   // }
+      // ]
     },
+
     {
       path: "/class",
       element: <Class/>,
@@ -148,6 +151,7 @@ export const commonRouter: RouteObject = {
       ],
 
     },
+
     {
       path: "article",
       element: <Article/>,
@@ -173,12 +177,13 @@ export const commonRouter: RouteObject = {
       children: [
         {
           index: true,
-          element: <Navigate to={"/contest/list"}/>,
-        },
-        {
-          path: "list",
           element: <ContestList/>
+          // element: <Navigate to={"/contest/list"}/>,
         },
+        // {
+        //   path: "list",
+        //   element: <ContestList/>
+        // },
         {
           path: ":contestId",
           element: <ContestDetail/>,

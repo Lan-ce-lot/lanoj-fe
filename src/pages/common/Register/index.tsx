@@ -9,7 +9,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {Button, Col, Form, Input, message, Row} from "antd";
 import {getCheckCodeInfo} from "../../../api/checkCode";
 import {CheckCircleOutlined, LockOutlined, MailOutlined, UserOutlined} from "@ant-design/icons";
-import GlobalFooter from "../../../components/common/footer/Footer";
+import GlobalFooter from "../../../layout/common/footer/Footer";
 import {Dispatch} from "redux";
 import {setUserToken} from "../../../store/actions";
 import {connect} from "react-redux";

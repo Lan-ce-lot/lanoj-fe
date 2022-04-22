@@ -3,11 +3,11 @@ import {
   Affix, Button
   , Layout
 } from 'antd';
-import Header from '../../components/common/header/Header'
-import Footer from '../../components/common/footer/Footer'
+import Header from './header/Header'
+import Footer from './footer/Footer'
 import {Link, Outlet} from 'react-router-dom'
 import styles from './CommonLayout.module.scss'
-import CommonBackTop from "../../components/common/commonBackTop/CommonBackTop";
+import CommonBackTop from "./commonBackTop/CommonBackTop";
 import {Content} from "antd/lib/layout/layout";
 
 interface CommonProps {

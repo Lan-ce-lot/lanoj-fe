@@ -12,7 +12,7 @@ import Page from "../../../components/Page/Page";
 import styles from "../../admin/dashboard/index.module.scss";
 import CommonCarousel from "./components/CommonCarousel";
 import Rank from "./components/Rank"
-import ScrollBar from "../../../components/admin/ScrollBar";
+import ScrollBar from "../../../layout/admin/ScrollBar";
 import RecentOtherContest from "./components/RecentOtherContest";
 import Notice from "./components/Notice";
 

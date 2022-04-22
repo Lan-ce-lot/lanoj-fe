@@ -6,7 +6,7 @@
  */
 import React from "react";
 import {Affix, Card, Layout} from "antd";
-import Header from "../../components/common/header/Header";
+import Header from "../common/header/Header";
 import {Content} from "antd/lib/layout/layout";
 // import styles from "../common/CommonLayout.module.scss";
 import {Outlet} from "react-router-dom";
