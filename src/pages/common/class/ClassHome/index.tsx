@@ -74,7 +74,7 @@ const ClassHome: React.FC<IProps> = ({}) => {
                   </Popconfirm>
                 </>}
               >
-                <Text>
+                <Text style={{  whiteSpace:"pre-line"}}>
                   {
                     classDetail?.description
                   }

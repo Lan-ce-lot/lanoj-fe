@@ -10,7 +10,7 @@ import ImgCrop from 'antd-img-crop';
 //import styles from './UploadAvatar.module.scss'
 
 import 'antd/dist/antd.css';
-// import './index.css';
+// import './index.scss';
 import {Upload, message, Avatar, Row, Col, Skeleton} from 'antd';
 import {InboxOutlined, LoadingOutlined, PlusOutlined, UserOutlined} from '@ant-design/icons';
 import {avatarUpload} from "../../../../api/file";

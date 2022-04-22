@@ -5,10 +5,15 @@
  * @Date: 2022/4/18 0:56
  */
 import React, {useState} from "react";
-import {Card} from "antd";
+import {Card, Radio, Tabs} from "antd";
 import Split from "@uiw/react-split";
 import Editor from "../problem/problemDetail/components/Editor";
 import ProblemContent from "../problem/problemDetail/components/ProblemContent";
+import {useNavigate} from "react-router-dom";
+import {CalendarOutlined} from "@ant-design/icons";
+import ScrollBar from "../../../components/admin/ScrollBar";
+
+const {TabPane} = Tabs;
 
 interface IProps {
 
@@ -16,6 +21,7 @@ interface IProps {
 
 
 const Test: React.FC<IProps> = ({}) => {
+  const navigate = useNavigate();
   const [width, setWidth] = useState(`50%`);
   const onClick = () => {
     setWidth(
@@ -34,17 +40,17 @@ const Test: React.FC<IProps> = ({}) => {
       {/*</div>*/}
       <Split
         onDragEnd={(preSize: number, nextSize: number, paneNumber: number) => {
-          if (preSize <= 15) {
-            // alert(nextSize)
+          setWidth(`${preSize}`)
+          if (preSize <= 20) {
+            // alert(preSize)
             setWidth('0%')
           }
-
         }}
         // visiable={width !== `0%`}
         style={{height: "100%", border: '1px solid #d5d5d5', borderRadius: 3}}>
         <div style={{
           ...styl,
-
+          width:width,
           height: "100%",
           // minWidth: 30,
           overflow: 'hidden'
@@ -57,11 +63,8 @@ const Test: React.FC<IProps> = ({}) => {
             }}
           >
             <ProblemContent/>
-
           </Card>
-
         </div>
-
         <div style={{
           flex: 1, height: "100%", minWidth: "45%",
           backgroundColor: '#fff'

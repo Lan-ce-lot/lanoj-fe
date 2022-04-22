@@ -44,7 +44,9 @@ const ProblemContent: React.FC<IProps> = ({loading}) => {
   }, [])
   return (<>
     <Skeleton loading={loading} active>
-      <div style={{width: "100%"}}>
+      <div
+        style={{width: "100%"}}
+      >
         <Title level={4}>{problem!.name}</Title>
         <Space size={1} style={{display: "flex", justifyContent: 'right'}}>
           <Button
