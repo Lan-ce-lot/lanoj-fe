@@ -1,25 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {MyRouter} from './router';
+import {BrowserRouter} from "react-router-dom";
+import {Provider} from "react-redux";
+import store from "./store";
+import Loading from "./components/Loading";
 
-function App() {
+import enUS from 'antd/lib/locale/en_US';
+import zhCN from 'antd/lib/locale/zh_CN';
+import Loader from "./components/Loader/Loader";
+import {ConfigProvider} from "antd";
+interface AppProps {
+}
+const App: React.FunctionComponent<AppProps> = (props) => {
+  console.log(
+    String.raw`
+
+ ___       ________  ________   ________        ___
+|\  \     |\   __  \|\   ___  \|\   __  \      |\  \
+\ \  \    \ \  \|\  \ \  \\ \  \ \  \|\  \     \ \  \
+ \ \  \    \ \   __  \ \  \\ \  \ \  \\\  \  __ \ \  \
+  \ \  \____\ \  \ \  \ \  \\ \  \ \  \\\  \|\  \\_\  \
+   \ \_______\ \__\ \__\ \__\\ \__\ \_______\ \________\
+    \|_______|\|__|\|__|\|__| \|__|\|_______|\|________|
+
+                    @Author Lancel`
+  )
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Provider store={store}>
+        <ConfigProvider locale={zhCN}>
+        {/*<Loader />*/}
+        <Loading/>
+          <MyRouter />
+        </ConfigProvider>
+      </Provider>
+    </BrowserRouter>
   );
 }
 

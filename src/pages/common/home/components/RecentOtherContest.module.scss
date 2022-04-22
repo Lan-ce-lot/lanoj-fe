@@ -1,0 +1,21 @@
+.otherContest {
+  :global .ant-table-thead > tr > th {
+    background: #fff;
+    border-bottom: solid 1px #666;
+  }
+
+  :global  .ant-table {
+    //@extend %text-overflow;
+    font-size: 13px;
+  }
+
+  :global .ant-table-cell {
+    padding: 12px 5px;
+  }
+
+  %text-overflow {
+    //white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}

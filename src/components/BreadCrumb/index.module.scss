@@ -1,0 +1,19 @@
+.BreadcrumbContainer {
+  margin-bottom: 24px;
+  //margin-bottom: 12px;
+
+  :global {
+    .ant-breadcrumb {
+      display: flex;
+      font-size: 13px;
+      align-items: center;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .bread {
+    margin-bottom: 12px;
+  }
+}
+

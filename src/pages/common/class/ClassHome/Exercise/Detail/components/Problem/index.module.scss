@@ -1,0 +1,21 @@
+.codeMirror {
+  height: 600px !important;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.codeMirror-scroll {
+  min-height: 549px;
+  max-height: 1000px;
+}
+
+.questionIntr {
+  margin-top: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  border-left: 2px solid #3498db;
+  background: #fafafa;
+  padding: 10px;
+  line-height: 1.8;
+  margin-bottom: 10px;
+  font-size: 14px;
+}

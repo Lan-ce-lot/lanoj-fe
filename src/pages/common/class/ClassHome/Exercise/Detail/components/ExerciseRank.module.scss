@@ -1,0 +1,84 @@
+/*
+ * File: scoreBoardTable.module.scss
+ * Description: 计分板表格样式
+ * Created: 2020-9-7 16:36:13
+ * Author: yuzhanglong
+ * Email: yuzl1123@163.com
+ */
+
+//.score_board_table_cell {
+//  padding: 0 !important;
+//  margin: 0;
+//}
+
+//:global
+
+//:global td.ant-table-cell  {
+//  margin: 100px!important;
+//  padding: 2px 4px !important;
+//}
+:global .ant-table-thead > tr > th {
+  background: #fff;
+  border-bottom: solid 1px #666;
+}
+//.problem_cell {
+//  padding: 2px 12px;
+//  height: 50px;
+//}
+
+.score_board_table {
+  display: flex;
+  justify-content: center;
+  :global td.ant-table-cell {
+    margin: 100px!important;
+    padding: 2px 2px !important;
+  }
+}
+
+.score_board_table_cell {
+  padding: 0 !important;
+  margin: 0;
+}
+
+.problem_cell {
+  .time {
+    text-align: center;
+    height: 40px;
+    padding: 10px 0;
+    //margin: 10px 0;
+    display: block;
+  }
+  .try {
+    text-align: center;
+    display: block;
+  }
+
+  //display: flex;
+  //justify-content: center;
+  height: 70px;
+}
+
+.accept {
+  height: 70px;
+  background-color: #60e760;
+}
+
+.wrong_answer {
+  height: 70px;
+  background-color: #e87272;
+}
+
+.accept_first {
+  background-color: #1daa1d !important;
+}
+
+.problem_cell_time {
+  font-weight: 700;
+  height: 24px;
+  cursor: pointer;
+}
+
+.problem_cell_try_amount {
+  font-weight: 640;
+  cursor: pointer;
+}

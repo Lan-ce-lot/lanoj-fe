@@ -1,0 +1,117 @@
+//.codeContent {
+//  min-height: 500px;
+//
+//
+//  //.CodeMirror-scroll {
+//  //  height: auto;
+//  //  overflow-y: hidden;
+//  //  overflow-x: auto;
+//  //}
+//}
+//.codeContent {
+//  height: 600px;
+//}
+.mainContent {
+  padding: 4px 4px;
+}
+
+//.codeContent > div {
+//  //overscroll-y: scroll !important;
+//  //min-height: 435px;
+//  //height: auto !important;
+//
+//}
+
+.codeContent {
+  height: 100%;
+
+  :global .CodeMirror {
+    /* Set height, width, borders, and global font properties here */
+    font-family: monospace;
+    //height: auto;
+    height: 100%;
+    //color: black;
+    direction: ltr;
+  }
+
+}
+
+.codeMirror {
+  height: 600px !important;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+//.codeMirror-scroll {
+//  min-height: 549px;
+//  max-height: 1000px;
+//}
+
+.questionIntr {
+  margin-top: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  border-left: 2px solid #3498db;
+  background: #fafafa;
+  padding: 10px;
+  line-height: 1.8;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+
+.problemContent h1,
+.problemContent h2,
+.problemContent h3,
+.problemContent h4,
+.problemContent h5,
+.problemContent h6 {
+  position: relative;
+  margin-top: 1em;
+  margin-bottom: 16px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.problemContent h1 {
+  padding-bottom: 0.3em;
+  font-size: 2.25em;
+  line-height: 1.2;
+  border-bottom: 1px solid #eee;
+}
+
+.problemContent h2 {
+  /*font-size: 18px;*/
+  font-weight: unset;
+  //font-size: 1.45em;
+  font-size: 16px;
+  line-height: 1.425;
+  /*border-bottom: 1px solid #eee;*/
+  /*background: #cce5ff;*/
+  //padding: 8px 10px;
+  padding: 10px 0;
+  margin: 0;
+  color: #3091f2;
+
+  border-radius: 3px;
+}
+
+.problemContent h3 {
+  font-size: 1.3em;
+  line-height: 1.43;
+}
+
+.problemContent h3:before {
+  content: '';
+  border-left: 4px solid #03a9f4;
+  padding-left: 6px;
+}
+
+.problemContent h4 {
+  font-size: 1.12em;
+}
+
+.problemContent h4:before {
+  content: '';
+  border-left: 4px solid #bbb;
+  padding-left: 6px;
+}
