@@ -167,11 +167,13 @@ const Editor: React.FC<IProps> = ({}) => {
       if (data.language === 'C++') {
         data.language = 'C_PLUS_PLUS'
       }
+      setLoading(true)
       addSubmission(data).then((res) => {
         const {data} = res
+        setLoading(false)
         if (data.code === 200) {
           message.success(data.msg);
-          navigate('submission')
+          navigate('submissions')
         } else {
           message.error(data.msg);
         }
@@ -189,11 +191,13 @@ const Editor: React.FC<IProps> = ({}) => {
       setHeight(`25%`)
     } else {
       if (value && value.length >= 7) {
+        setLoading(true)
         remoteRunCode({
           ...form.getFieldsValue(true),
           submissionCode: value,
           language: language === 'C++' ? "C_PLUS_PLUS" : language
         }).then(res => {
+          setLoading(false)
           const {data} = res.data
           if (res.data.code === 200) {
             form.setFieldsValue(data)
@@ -344,73 +348,6 @@ const Editor: React.FC<IProps> = ({}) => {
                 提交
               </Button>
             </Space>
-
-
-            {/*<Row gutter={[24, 8]}>*/}
-            {/*  /!*<Col md={24} lg={8}>*!/*/}
-            {/*  /!*  <span>语言 </span>*!/*/}
-            {/*  /!*  <Select defaultValue="C++" style={{width: 120}} onChange={onLanguageChange}>*!/*/}
-            {/*  /!*    {*!/*/}
-            {/*  /!*      languages.map((item: any) => {*!/*/}
-            {/*  /!*        return (<Option key={item.value} value={item.value}>*!/*/}
-            {/*  /!*            {item.label}*!/*/}
-            {/*  /!*          </Option>*!/*/}
-            {/*  /!*        )*!/*/}
-            {/*  /!*      })*!/*/}
-            {/*  /!*    }*!/*/}
-            {/*  /!*  </Select>*!/*/}
-            {/*  /!*</Col>*!/*/}
-            {/*  /!*<Col md={24} lg={8}>*!/*/}
-            {/*  /!*  <Button*!/*/}
-            {/*  /!*    onClick={onRefresh}*!/*/}
-            {/*  /!*    icon={<RedoOutlined/>}*!/*/}
-            {/*  /!*  />*!/*/}
-            {/*  /!*</Col>*!/*/}
-            {/*  /!*<Col md={24} lg={8}>*!/*/}
-            {/*  /!*  <span>主题 </span>*!/*/}
-            {/*  /!*  <Select defaultValue="material" style={{width: 120}} onChange={onThemeChange}>*!/*/}
-            {/*  /!*    {*!/*/}
-            {/*  /!*      themes.map((item: any) => {*!/*/}
-            {/*  /!*        return (<Option key={item.value} value={item.value}>*!/*/}
-            {/*  /!*            {item.label}*!/*/}
-            {/*  /!*          </Option>*!/*/}
-            {/*  /!*        )*!/*/}
-            {/*  /!*      })*!/*/}
-            {/*  /!*    }*!/*/}
-            {/*  /!*  </Select>*!/*/}
-            {/*  /!*</Col>*!/*/}
-            {/*  <Col lg={24} md={24} sm={24} xs={24}>*/}
-
-
-            {/*  </Col>*/}
-            {/*  <Col lg={24} md={24}>*/}
-
-            {/*  </Col>*/}
-            {/*</Row>*/}
-            {/*<div style={{marginTop: '5px', overflow: "auto"}}>*/}
-            {/*  <Form*/}
-            {/*    form={form}*/}
-            {/*  >*/}
-            {/*    <Form.Item*/}
-            {/*      label={"输入"}*/}
-            {/*      name={"stdIn"}*/}
-            {/*    >*/}
-            {/*      <TextArea placeholder="输入" autoSize/>*/}
-            {/*    </Form.Item>*/}
-            {/*    <Form.Item*/}
-            {/*      label={"输出"}*/}
-            {/*      name={"stdOut"}>*/}
-            {/*      <TextArea*/}
-            {/*        disabled*/}
-            {/*        placeholder="输出" autoSize*/}
-            {/*      />*/}
-            {/*    </Form.Item>*/}
-            {/*  </Form>*/}
-            {/*</div>*/}
-            {/*</Split>*/}
-            {/*</Card>*/}
-            {/*</div>*/}
-
           </div>
         </div>
         <div
@@ -429,7 +366,8 @@ const Editor: React.FC<IProps> = ({}) => {
               label={"输入"}
               name={"stdIn"}
             >
-              <TextArea placeholder="输入" autoSize/>
+              <TextArea
+                placeholder="输入" autoSize={{minRows: 2}}/>
             </Form.Item>
             <Form.Item
               label={"输出"}

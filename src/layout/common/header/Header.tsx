@@ -29,6 +29,7 @@ import Cookies from "js-cookie";
 import {getUserInfo} from "../../../api/common/userInfo";
 import Logo from "../../../components/Logo/Logo";
 import {IUser} from "../../../api/admin/user";
+import {commonMenuList} from "../../../router/commonMenuList";
 
 const {SubMenu} = Menu
 
@@ -148,40 +149,42 @@ const Header: React.FC<HeaderProps> = ({onDelUserToken, token}) => {
         <Col xs={0} sm={0} md={12} lg={12}>
           <Row gutter={24} justify={'space-between'}>
             <Col xs={0} sm={0} md={14} lg={24}>
-              <Menu mode="horizontal">
-                <Menu.Item className="common-menu-item" key="/home" icon={<HomeOutlined/>}
-                >
-                  <Link to={'/home'}>
-                    首页
-                  </Link>
-                </Menu.Item>
-                <Menu.Item className="common-menu-item" key="problem" icon={<AppstoreOutlined/>}>
-                  <Link to={'/problems'}>
-                    题库
-                  </Link>
-                </Menu.Item>
-                <Menu.Item className="common-menu-item" key="class" icon={<TeamOutlined/>}>
-                  <Link to={'/class'}>
-                    班级
-                  </Link>
-                </Menu.Item>
-                <Menu.Item className="common-menu-item" key="contest" icon={<TrophyOutlined/>}>
-                  <Link to={'/contest'}>
-                    比赛
-                  </Link>
-                </Menu.Item>
-                <Menu.Item className="common-menu-item" key="status" icon={<StockOutlined/>}>
-                  <Link to={'/status'}>
-                    状态
-                  </Link>
-                </Menu.Item>
-                <Menu.Item
-                  // disabled
-                  className="common-menu-item" key="article" icon={<ReadOutlined/>}>
-                  <Link to={'/article'}>
-                    题解
-                  </Link>
-                </Menu.Item>
+              <Menu mode="horizontal"
+              // menu={commonMenuList}
+              >
+                {/*<Menu.Item className="common-menu-item" key="/home" icon={<HomeOutlined/>}*/}
+                {/*>*/}
+                {/*  <Link to={'/home'}>*/}
+                {/*    首页*/}
+                {/*  </Link>*/}
+                {/*</Menu.Item>*/}
+                {/*<Menu.Item className="common-menu-item" key="problem" icon={<AppstoreOutlined/>}>*/}
+                {/*  <Link to={'/problems'}>*/}
+                {/*    题库*/}
+                {/*  </Link>*/}
+                {/*</Menu.Item>*/}
+                {/*<Menu.Item className="common-menu-item" key="class" icon={<TeamOutlined/>}>*/}
+                {/*  <Link to={'/class'}>*/}
+                {/*    班级*/}
+                {/*  </Link>*/}
+                {/*</Menu.Item>*/}
+                {/*<Menu.Item className="common-menu-item" key="contest" icon={<TrophyOutlined/>}>*/}
+                {/*  <Link to={'/contest'}>*/}
+                {/*    比赛*/}
+                {/*  </Link>*/}
+                {/*</Menu.Item>*/}
+                {/*<Menu.Item className="common-menu-item" key="status" icon={<StockOutlined/>}>*/}
+                {/*  <Link to={'/status'}>*/}
+                {/*    状态*/}
+                {/*  </Link>*/}
+                {/*</Menu.Item>*/}
+                {/*<Menu.Item*/}
+                {/*  // disabled*/}
+                {/*  className="common-menu-item" key="article" icon={<ReadOutlined/>}>*/}
+                {/*  <Link to={'/article'}>*/}
+                {/*    题解*/}
+                {/*  </Link>*/}
+                {/*</Menu.Item>*/}
               </Menu>
             </Col>
           </Row>

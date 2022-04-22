@@ -92,28 +92,29 @@ const ProblemSubmissions: React.FC<IProps> = ({}) => {
     // eslint-disable-next-line
   }, [problemId, listQuery]);
   const columns: any[] = [
-    {
-      title: '#',
-      dataIndex: 'id',
-    },
-    {
-      title: '用户',
-      dataIndex: 'username',
-      render: (text: any, record: any) => (
-        <>
-          {/*<Avatar style={{marginLeft: 8}}*/}
-          {/*        src={`http://dummyimage.com/100x100/f27993/757575.png&text=${record.name[0]}`}>*/}
-          {/*</Avatar>*/}
-          <span style={{marginLeft: '10px'}}>{record.username}</span>
-        </>
-      ),
-    },
-    {
-      title: '题目',
-      dataIndex: 'problemId',
-    },
+    // {
+    //   title: '#',
+    //   dataIndex: 'id',
+    // },
+    // {
+    //   title: '用户',
+    //   dataIndex: 'username',
+    //   render: (text: any, record: any) => (
+    //     <>
+    //       {/*<Avatar style={{marginLeft: 8}}*/}
+    //       {/*        src={`http://dummyimage.com/100x100/f27993/757575.png&text=${record.name[0]}`}>*/}
+    //       {/*</Avatar>*/}
+    //       <span style={{marginLeft: '10px'}}>{record.username}</span>
+    //     </>
+    //   ),
+    // },
+    // {
+    //   title: '题目',
+    //   dataIndex: 'problemId',
+    // },
     {
       title: '状态',
+      fixed: 'right',
       dataIndex: 'judgeCondition',
       render: (text: any, record: any) => (
         <>
@@ -131,6 +132,11 @@ const ProblemSubmissions: React.FC<IProps> = ({}) => {
     {
       title: '语言',
       dataIndex: 'language',
+      render: (text: any, record: any) => (
+        <>
+          {text === 'C_PLUS_PLUS' ? 'C++' : text}
+        </>
+      ),
     },
     {
       title: '运行时间',
@@ -153,7 +159,7 @@ const ProblemSubmissions: React.FC<IProps> = ({}) => {
         <>
           {
             text ?
-              `${text}KB`
+              `${(text / 1024).toFixed(1)}MB`
               :
               `----`
           }
@@ -164,89 +170,89 @@ const ProblemSubmissions: React.FC<IProps> = ({}) => {
     {
       title: '提交时间',
       dataIndex: 'createdAt',
+      width: '30%'
     }
   ]
   return (<>
-    <Page>
-      <Card>
-        <Table
-          rowKey='id'
-          columns={columns}
-          dataSource={datas}
-          pagination={{
-            pageSizeOptions: ["10", "20"],
-            showTotal: total => `共${total}条数据`,
-            // onShowSizeChange: changePageSize,
-            showSizeChanger: true,
-            showQuickJumper: true,
-            // hideOnSinglePage: true
-          }}
-        >
-        </Table>
-      </Card>
-      <Modal
-        destroyOnClose
-        // title={'查看提交'}
-        visible={modalVisible}
-        footer={null}
-        width={950}
-        onCancel={() => {
-          setModalVisible(false)
+    {/*<Card>*/}
+      <Table
+        rowKey='id'
+        columns={columns}
+        scroll={{x: 550}}
+        dataSource={datas}
+        pagination={{
+          pageSizeOptions: ["10", "20"],
+          showTotal: total => `共${total}条数据`,
+          // onShowSizeChange: changePageSize,
+          showSizeChanger: true,
+          showQuickJumper: true,
+          // hideOnSinglePage: true
         }}
       >
-        {currentRow &&
-          <Descriptions title="查看提交"
-                        size={'small'}
-                        column={2} bordered>
-            <Descriptions.Item
-              label="提交时间">{moment(currentRow?.createdAt).format(DEFAULT_DATE_TIME_FORMAT)}</Descriptions.Item>
-            <Descriptions.Item label="判题状态"><Tag>{currentRow.judgeCondition}</Tag></Descriptions.Item>
-            <Descriptions.Item label="运行时间">{currentRow.timeCost}ms</Descriptions.Item>
-            <Descriptions.Item label="运行内存">{currentRow.memoryCost}KB</Descriptions.Item>
-            <Descriptions.Item label="提交语言">
-              {currentRow.language}
-            </Descriptions.Item>
-            <Descriptions.Item label="代码长度">
-              {currentRow.codeContent.length}
-            </Descriptions.Item>
-            <Descriptions.Item label="评测机" span={2}>
-              {
-                currentRow.judgerId
-              }
-            </Descriptions.Item>
+      </Table>
+    {/*</Card>*/}
+    <Modal
+      destroyOnClose
+      // title={'查看提交'}
+      visible={modalVisible}
+      footer={null}
+      width={950}
+      onCancel={() => {
+        setModalVisible(false)
+      }}
+    >
+      {currentRow &&
+        <Descriptions title="查看提交"
+                      size={'small'}
+                      column={2} bordered>
+          <Descriptions.Item
+            label="提交时间">{moment(currentRow?.createdAt).format(DEFAULT_DATE_TIME_FORMAT)}</Descriptions.Item>
+          <Descriptions.Item label="判题状态"><Tag>{currentRow.judgeCondition}</Tag></Descriptions.Item>
+          <Descriptions.Item label="运行时间">{currentRow.timeCost}ms</Descriptions.Item>
+          <Descriptions.Item label="运行内存">{currentRow.memoryCost}KB</Descriptions.Item>
+          <Descriptions.Item label="提交语言">
+            {currentRow.language}
+          </Descriptions.Item>
+          <Descriptions.Item label="代码长度">
+            {currentRow.codeContent.length}
+          </Descriptions.Item>
+          <Descriptions.Item label="评测机" span={2}>
+            {
+              currentRow.judgerId
+            }
+          </Descriptions.Item>
 
-            <Descriptions.Item label="测试点" span={2}>
-              {
-                currentRow.judgeResult.judgeResults.map((item: any, index: number) => {
-                  return (<Tooltip title={`测试点 #${index + 1}`} key={item.id}>
+          <Descriptions.Item label="测试点" span={2}>
+            {
+              currentRow.judgeResult.judgeResults.map((item: any, index: number) => {
+                return (<Tooltip title={`测试点 #${index + 1}`} key={item.id}>
 
-                    <Tag>{item.message}</Tag>
-                  </Tooltip>)
-                })
-              }
-            </Descriptions.Item>
+                  <Tag>{item.message}</Tag>
+                </Tooltip>)
+              })
+            }
+          </Descriptions.Item>
 
-            <Descriptions.Item label="代码" span={2}>
+          <Descriptions.Item label="代码" span={2}>
 
-              <CodeMirror
-                options={{...options}}
-                value={currentRow.codeContent}
-                onChange={(editor, data, value) => {
-                }}
-                onBeforeChange={(editor, data, value) => {
-                }}
-              />
-            </Descriptions.Item>
+            <CodeMirror
+              options={{...options}}
+              value={currentRow.codeContent}
+              onChange={(editor, data, value) => {
+              }}
+              onBeforeChange={(editor, data, value) => {
+              }}
+            />
+          </Descriptions.Item>
 
-            <Descriptions.Item label="评测机返回" span={2}>
-              <Input.TextArea disabled value={currentRow.judgeResult.extraInfo} autoSize/>
+          <Descriptions.Item label="评测机返回" span={2}>
+            <Input.TextArea disabled value={currentRow.judgeResult.extraInfo} autoSize/>
 
-            </Descriptions.Item>
-          </Descriptions>
+          </Descriptions.Item>
+        </Descriptions>
 
-        }
-      </Modal>
-    </Page>
+      }
+    </Modal>
 
   </>)
 }

@@ -9,6 +9,8 @@ import adminRouter from "./admin";
 import Test from "../pages/common/test";
 import ProblemLayout from "../layout/problem/ProblemLayout";
 import ProblemDetail from "../pages/common/problem/problemDetail";
+import ProblemSubmissions from "../pages/common/problem/problemDetail/components/ProblemSubmissions";
+import ProblemContent from "../pages/common/problem/problemDetail/components/ProblemContent";
 
 
 const router: any[] = [
@@ -33,17 +35,19 @@ const router: any[] = [
     ]
   },
   {
-    path: "/problem",
+    path: "/problem/:id",
     element: <ProblemLayout/>,
     children: [
       {
-        index: true,
-        element: <Navigate to={"/problems"}/>,
+        index:true,
+        element: <ProblemContent/>
+        // index: true,
+        // element: <Navigate to={"/problems"}/>,
         // element: <ProblemDetail/>
       },
       {
-        path: ":id",
-        element: <ProblemDetail/>
+        path: "submissions",
+        element: <ProblemSubmissions/>
       },
     ]
   },

@@ -6,7 +6,7 @@ import React from "react";
  * @Author: Lance
  * @Date: 2022/2/28 15:26
  */
-interface MenuObject {
+export interface MenuObject {
   // id:number;
   // route:string;
   title: string,

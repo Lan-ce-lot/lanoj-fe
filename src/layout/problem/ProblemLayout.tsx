@@ -12,6 +12,7 @@ import {Content} from "antd/lib/layout/layout";
 import {Outlet} from "react-router-dom";
 
 import styles from './ProblemLayout.module.scss'
+import ProblemDetail from "../../pages/common/problem/problemDetail";
 
 interface IProps {
 
@@ -32,8 +33,8 @@ const problemLayout: React.FC<IProps> = ({}) => {
         <Content
           className={styles.content}
         >
-          <Outlet/>
-
+          {/*<Outlet/>*/}
+          <ProblemDetail/>
         </Content>
       </div>
     </Layout>

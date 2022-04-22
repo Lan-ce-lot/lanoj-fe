@@ -5,7 +5,7 @@
  * @Date: 2022/3/11 18:11
  */
 import React, {useEffect, useState} from "react";
-import {Card, Input, message, Row, Space, Tag} from "antd";
+import {Card, Input, message, Row, Skeleton, Space, Tag} from "antd";
 import {getTagList, ITag, ITagQuery} from "../../../../../api/admin/tag";
 
 //import styles from './ProblemTags.module.scss'
@@ -45,26 +45,28 @@ const ProblemTags: React.FC<IProps> = ({tagOnClick}) => {
   }
   return (<>
 
-    <Card
-      title={"题库标签"}
-      bordered={false}
-      extra={<Input.Search
-        loading={loading}
-        onChange={handleNameFilter}
-        placeholder={"输入标签名称"}
-        // style={{ width: '50%' }}
-      />}
-    >
-      <Space size={[12, 8]}
-             wrap
-      >
-        {
-          list?.map((it, key) => <Tag
-            onClick={tagOnClick.bind(null, it.name)}
-            key={it.id} color={it.color}>{it.name}</Tag>)
-        }
-      </Space>
-    </Card>
+      <Card
+        title={"题库标签"}
+        bordered={false}
+        extra={<Input.Search
+          loading={loading}
+          onChange={handleNameFilter}
+          placeholder={"输入标签名称"}
+          // style={{ width: '50%' }}
+        />}
+      ><Skeleton loading={loading} active>
+        <Space size={[12, 8]}
+               wrap
+        >
+          {
+            list?.map((it, key) => <Tag
+              onClick={tagOnClick.bind(null, it.name)}
+              key={it.id} color={it.color}>{it.name}</Tag>)
+          }
+        </Space></Skeleton>
+      </Card>
+
+
   </>)
 }
 export default ProblemTags;
