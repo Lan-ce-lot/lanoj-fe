@@ -30,7 +30,7 @@ interface AdminMenuProps {
 }
 
 
-const AdminMenu: React.FunctionComponent<AdminMenuProps> = ({theme,role,}) => {
+const AdminMenu: React.FC<AdminMenuProps> = ({theme,role,}) => {
   const location = useLocation()
   // Generating tree-structured data for menu content.
   // const menuTree = arrayToTree(menus, 'id', 'menuParentId')

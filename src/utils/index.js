@@ -61,16 +61,17 @@ export function arrayToTree(
  * @param level
  * @returns {*[]}
  */
-export function treeToArray(tree,role , parentPath = '',  result = [], level = 0) {
+export function treeToArray(tree, role, parentPath = '', result = [], level = 0) {
   tree.forEach(node => {
-    if (node.roles === undefined || node.roles.includes(role)) {
-      result.push(parentPath !== '' ?{...node, parentPath:parentPath} : node)
+    if (node.roles === undefined || node.roles.includes('*') || node.roles.includes(role)) {
+      result.push(parentPath !== '' ? {...node, parentPath: parentPath} : node)
       node.level = level + 1
       node.children && treeToArray(node.children, role, node.path, result, level + 1)
     }
   })
   return result
 }
+
 // export function treeFilter(tree,role , parentPath = '',  result = [], level = 0) {
 //   tree.forEach(node => {
 //     if (node.roles === undefined || node.roles.includes(role)) {

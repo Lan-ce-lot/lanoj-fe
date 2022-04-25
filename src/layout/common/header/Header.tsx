@@ -5,7 +5,7 @@ import {
   , Col
   , Menu
   , Button
-  , Modal, Avatar, Layout, Tag
+  , Modal, Avatar, Layout, Tag, Image
 } from "antd";
 import {
   HomeOutlined
@@ -30,6 +30,7 @@ import {getUserInfo} from "../../../api/common/userInfo";
 import Logo from "../../../components/Logo/Logo";
 import {IUser} from "../../../api/admin/user";
 import {commonMenuList} from "../../../router/commonMenuList";
+import CommonMenu from "./CommonMenu/CommonMenu";
 
 const {SubMenu} = Menu
 
@@ -82,6 +83,7 @@ const Header: React.FC<HeaderProps> = ({onDelUserToken, token}) => {
   const rightContent = [
     <Menu key="user" mode="horizontal">
       <SubMenu
+        style={{justifyContent: "space-between"}}
         key="head"
         title={
           <>
@@ -89,7 +91,7 @@ const Header: React.FC<HeaderProps> = ({onDelUserToken, token}) => {
                 <span>欢迎</span>
               </span>
             <span style={{marginRight: 4}}>{user?.username}</span>
-            <Tag color={"error"}>{user?.role?.name}</Tag>
+            {/*<Tag color={"error"}>{user?.role?.name}</Tag>*/}
             <Avatar style={{marginLeft: 8}} src={user?.avatar}/>
           </>
         }
@@ -126,101 +128,48 @@ const Header: React.FC<HeaderProps> = ({onDelUserToken, token}) => {
   return (
     <Layout.Header style={{
       backgroundColor: '#fff',
+      // zIndex:'1000000',
+      // borderBottom: 'solid 1px #666'
     }}>
       <Row gutter={24}>
-        <Col xs={20} sm={20} md={8} lg={7}>
-          <Row gutter={24} justify={'start'}>
-            <Col xs={24} sm={24} md={24} lg={24}>
-              {/*<Link to={'/'}>*/}
-              {/*  <Logo/>*/}
-              {/*</Link>*/}
+        <Col xs={20} sm={20} md={6} lg={6}>
+          <div className={styles.headerLog}>
+            <Link to={'/'}>
+              <div className={styles.imgWrap}>
+                <img alt="logo"
+                     src={'/logo192.png'}
+                />
+                <div className={styles.text}>
+                  LANOJ
+                </div>
+              </div>
 
-              <Link to={'/'}>
-                <span className={styles.headerLog}><img alt="logo"
-                  // src={'/svg/Penrose_triangle.svg'}
-                                                        src={'/logo192.png'}
-                />LANOJ</span></Link>
-            </Col>
-            {/*<Col xs={0} sm={0} md={0} lg={14}>*/}
-            {/*  <span className={styles.headerText}>${'占位符'}</span>*/}
-            {/*</Col>*/}
-          </Row>
+            </Link>
+          </div>
         </Col>
-        <Col xs={0} sm={0} md={12} lg={12}>
+        <Col xs={0} sm={0} md={15} lg={15}>
           <Row gutter={24} justify={'space-between'}>
             <Col xs={0} sm={0} md={14} lg={24}>
-              <Menu mode="horizontal"
-              // menu={commonMenuList}
-              >
-                {/*<Menu.Item className="common-menu-item" key="/home" icon={<HomeOutlined/>}*/}
-                {/*>*/}
-                {/*  <Link to={'/home'}>*/}
-                {/*    首页*/}
-                {/*  </Link>*/}
-                {/*</Menu.Item>*/}
-                {/*<Menu.Item className="common-menu-item" key="problem" icon={<AppstoreOutlined/>}>*/}
-                {/*  <Link to={'/problems'}>*/}
-                {/*    题库*/}
-                {/*  </Link>*/}
-                {/*</Menu.Item>*/}
-                {/*<Menu.Item className="common-menu-item" key="class" icon={<TeamOutlined/>}>*/}
-                {/*  <Link to={'/class'}>*/}
-                {/*    班级*/}
-                {/*  </Link>*/}
-                {/*</Menu.Item>*/}
-                {/*<Menu.Item className="common-menu-item" key="contest" icon={<TrophyOutlined/>}>*/}
-                {/*  <Link to={'/contest'}>*/}
-                {/*    比赛*/}
-                {/*  </Link>*/}
-                {/*</Menu.Item>*/}
-                {/*<Menu.Item className="common-menu-item" key="status" icon={<StockOutlined/>}>*/}
-                {/*  <Link to={'/status'}>*/}
-                {/*    状态*/}
-                {/*  </Link>*/}
-                {/*</Menu.Item>*/}
-                {/*<Menu.Item*/}
-                {/*  // disabled*/}
-                {/*  className="common-menu-item" key="article" icon={<ReadOutlined/>}>*/}
-                {/*  <Link to={'/article'}>*/}
-                {/*    题解*/}
-                {/*  </Link>*/}
-                {/*</Menu.Item>*/}
-              </Menu>
+              <CommonMenu/>
             </Col>
           </Row>
         </Col>
-        <Col xs={4} sm={4} md={4} lg={5}>
-          <Row justify={"end"}>
-            <Col xs={12} sm={12} md={12} lg={24} className={styles.headRight}>
-              {
-                !token ?
-                  <Button
-                    // size="large"
-                    type="primary"
-                    // htmlType="submit"
-                    onClick={showModal}
-                    // shape="round"
-                  >登录
-                  </Button> : rightContent
-              }
-            </Col>
-            <Modal
-              // title={<h2 style={{textAlign: "center", color:"#16b8f3"}}>LANOJ</h2>}
-              title={null}
-              visible={visible}
-              onOk={handleOk}
-              confirmLoading={confirmLoading}
-              onCancel={handleCancel}
-              destroyOnClose={true}
-              footer={null}
-              width={320}
-            >
-              <Context.Provider value={visible}>
-                <LoginForm
-                />
-              </Context.Provider>
-            </Modal>
-          </Row>
+        <Col xs={3} sm={3} md={3} lg={3}
+             style={{display: "flex",
+               alignItems: 'center',
+               justifyContent: "end"}}
+        >
+          {
+            !token ?
+              <Button
+                // size="large"
+                type="primary"
+                // htmlType="submit"
+                onClick={showModal}
+                // shape="round"
+              >登录
+              </Button> : rightContent
+          }
         </Col>
 
       </Row>

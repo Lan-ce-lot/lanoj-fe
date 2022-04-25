@@ -129,7 +129,7 @@ const languages = [
 const Editor: React.FC<IProps> = ({}) => {
   let {id} = useParams();
   const navigate = useNavigate();
-  const [height, setHeight] = useState(`50%`);
+  const [height, setHeight] = useState(`0%`);
   const onClick = () => {
     setHeight(
       height === `0%` ? `20%` : `0%`,
@@ -213,18 +213,6 @@ const Editor: React.FC<IProps> = ({}) => {
     }
 
   }
-  // const [width, setWidth] = useState(`50%`);
-  // const onClick = () => {
-  //   setWidth(
-  //     width === `0%` ? `50%` : `0%`,
-  //   );
-  // }
-  // const styl: any = {};
-  // if (width === `0%`) {
-  //   styl.width = `0%`;
-  // } else {
-  //   styl.width = width;
-  // }
 
   return (
     <>
@@ -359,9 +347,18 @@ const Editor: React.FC<IProps> = ({}) => {
             overflowX: 'hidden',
             // padding: '10px'
           }}>
+
           <Form
             form={form}
           >
+            {/*<Form.Item>*/}
+            {/*  {*/}
+
+            {/*    // <Alert  message="运行成功" type="success" showIcon />*/}
+            {/*    // <Alert message="运行失败" type="error" showIcon />*/}
+            {/*  }*/}
+
+            {/*</Form.Item>*/}
             <Form.Item
               label={"输入"}
               name={"stdIn"}

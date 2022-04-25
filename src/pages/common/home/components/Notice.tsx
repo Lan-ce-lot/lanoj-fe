@@ -69,7 +69,8 @@ const Notice: React.FC<IProps> = ({}) => {
         showTotal: total => `共${total}条数据`,
         onChange: changePage,
         current: listQuery.current,
-        hideOnSinglePage: true
+        hideOnSinglePage: true,
+
       }}
       dataSource={list}
       renderItem={item => (

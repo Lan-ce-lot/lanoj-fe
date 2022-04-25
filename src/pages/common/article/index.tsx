@@ -97,15 +97,8 @@ const Article: React.FC<IProps> = ({}) => {
             onChange: changePage,
             current: listQuery.current,
             showSizeChanger: true,
-            // showQuickJumper: true,
             hideOnSinglePage: true
           }}
-          // pagination={{
-          //   onChange: page => {
-          //     console.log(page);
-          //   },
-          //   pageSize: 5,
-          // }}
           dataSource={list}
           renderItem={item => (
             <List.Item
@@ -176,7 +169,10 @@ const Article: React.FC<IProps> = ({}) => {
                   showHeader={false}
                   rowKey={'id'}
                   columns={[
-                    {dataIndex: 'title'}]}
+                    {
+                      dataIndex: 'title',
+                      render: (text, record) => <Link to={`${record.id}`}>{text}</Link>
+                    }]}
                   dataSource={recentArticles}
                 />
               </Card>

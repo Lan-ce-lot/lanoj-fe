@@ -9,7 +9,7 @@ import BetterMarked from "../../../../components/OhMyMarked/BetterMarked";
 
 import styles from './Detail.module.scss'
 import Page from "../../../../components/Page/Page";
-import {Affix, Avatar, Button, Card, Col, List, Row, Skeleton, Space} from "antd";
+import {Affix, Avatar, Button, Card, Col, Empty, List, Row, Skeleton, Space} from "antd";
 import {marked, Renderer} from "marked";
 import hljs from "highlight.js";
 import Tocify from "../../../../components/Tocify/Tocify";
@@ -27,7 +27,7 @@ import Title from "antd/es/typography/Title";
 import {getArticleDetail, IArticle, initArticle} from "../../../../api/admin/article";
 import {Link, useParams} from "react-router-dom";
 import moment from "moment";
-import {DATE_TIME_FORMAT_WITHOUT_TIME, DEFAULT_DATE_TIME_FORMAT} from "../../../../config/config";
+import {DATE_TIME_FORMAT_WITHOUT_TIME, DEFAULT_DATE_TIME_FORMAT, EMPTY_IMAGE} from "../../../../config/config";
 import ProblemMarked from "../../../../components/OhMyMarked/ProblemMarked";
 import ArticleMarked from "../../../../components/OhMyMarked/ArticleMarked";
 
@@ -175,7 +175,7 @@ const Detail: React.FC<IProps> = ({}) => {
                   <div className="detailed-nav comm-box">
                     <div className={styles.navTitle}>文章目录</div>
                     <div className="toc-list">
-                      {tocify && tocify.render()}
+                      {tocify && tocify.tocItems.length ? tocify.render() : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
                     </div>
                   </div>
 

@@ -40,7 +40,7 @@ const Home: React.FunctionComponent<HomeProps> = (props) => {
             bordered={false}
             bodyStyle={{
               // padding: '24px 36px 24px 0',
-              // height: 432,
+              height: 468,
             }}
           >
             <CommonCarousel/>
@@ -51,7 +51,7 @@ const Home: React.FunctionComponent<HomeProps> = (props) => {
             title={"排行榜"}
             bordered={false}
             bodyStyle={{
-              height: 460,
+              height: 468,
             }}
           >
             <ScrollBar>

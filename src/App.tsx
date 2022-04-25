@@ -10,8 +10,10 @@ import enUS from 'antd/lib/locale/en_US';
 import zhCN from 'antd/lib/locale/zh_CN';
 import Loader from "./components/Loader/Loader";
 import {ConfigProvider} from "antd";
+
 interface AppProps {
 }
+
 const App: React.FunctionComponent<AppProps> = (props) => {
   console.log(
     String.raw`
@@ -27,15 +29,17 @@ const App: React.FunctionComponent<AppProps> = (props) => {
                     @Author Lancel`
   )
   return (
-    <BrowserRouter>
-      <Provider store={store}>
-        <ConfigProvider locale={zhCN}>
-        {/*<Loader />*/}
-        <Loading/>
-          <MyRouter />
-        </ConfigProvider>
-      </Provider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <ConfigProvider locale={zhCN}>
+        <BrowserRouter>
+
+          {/*<Loader />*/}
+          <Loading/>
+          <MyRouter/>
+
+        </BrowserRouter>
+      </ConfigProvider>
+    </Provider>
   );
 }
 

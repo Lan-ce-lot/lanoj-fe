@@ -32,7 +32,7 @@ service.interceptors.request.use(
 
 
     if (store.getState().user.token) {
-      console.log(store.getState().user.token)
+      // console.log(store.getState().user.token)
       // let each request carry token
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation

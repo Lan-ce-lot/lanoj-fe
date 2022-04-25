@@ -128,6 +128,7 @@ const AdminHeader: React.FunctionComponent<AdminHeaderProps> = (props) => {
 }
 
 const mapStateToProps = (state:any) => {
+  // alert(1)
   return {
     ...state.app,
   };

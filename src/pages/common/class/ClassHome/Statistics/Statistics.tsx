@@ -5,19 +5,18 @@
  * @Date: 2022/4/6 16:49
  */
 import React, {useEffect, useState} from "react";
-import Page from "../../../../../components/Page/Page";
 import {Button, Card, Table} from "antd";
-import {initProblem, IProblem, IProblemQuery} from "../../../../../api/admin/problem";
 import {getStatistics, IStatisticsItem} from "../../../../../api/common/statistics";
 import {useParams} from "react-router-dom";
+import moment from "moment";
+import {DEFAULT_DATE_TIME_FORMAT} from "../../../../../config/config";
+import * as XLSX from 'xlsx'
+// @ts-ignore
+import ReactHTMLTableToExcel from 'react-html-table-to-excel'
 
 //import styles from './Statistics.module.scss'
 
 interface IProps {
-
-}
-
-interface IState {
 
 }
 
@@ -67,6 +66,7 @@ const Statistics: React.FC<IProps> = ({}) => {
       key: 'totalTimePenalty',
     },
   ]
+
   list[0] && list[0].exerciseItemList.map((it, key) => {
     columns.push(
       {
@@ -78,24 +78,47 @@ const Statistics: React.FC<IProps> = ({}) => {
       }
     )
   })
+  // const exportExcel = () => {
+  //   const cloneDivNode = document.getElementById('antdTable')?.cloneNode(true);
+  //   const table = document.createElement('table')
+  //   table.appendChild(cloneDivNode!);
+  //   table.setAttribute('id', 'table-to-xls');
+  //   document.getElementById('root')?.appendChild(table);
+  //   document.getElementById('test-table-xls-button')?.click();
+  //   setTimeout(() => {
+  //     document.getElementById('root')?.removeChild(table);
+  //   }, 500)
+  // }
   return (<Card
-    style={{minHeight:410}}
-    title={'班级练习统计'}
-    extra={<>
-      <Button>导出</Button>
-    </>}
-  >
-    <Table
-      dataSource={list}
-      bordered
-      columns={columns}
-      rowKey={(record) => '' + record.userId!}
-      loading={loading}
-      scroll={{x: 1100}}
-      pagination={false}
+      style={{minHeight: 410}}
+      title={'班级练习统计'}
+      extra={<>
+        <Button onClick={exportExcel}>导出</Button>
+      </>}
     >
+      <Table
+        id={'antdTable'}
+        dataSource={list}
+        bordered
+        columns={columns}
+        rowKey={(record) => '' + record.userId!}
+        loading={loading}
+        scroll={{x: 1100}}
+        pagination={false}
+      >
 
-    </Table>
-  </Card>)
+      </Table>
+      <div style={{display: 'none'}}>
+        <ReactHTMLTableToExcel
+          id="test-table-xls-button"
+          // className="download-table-xls-button"
+          table="table-to-xls"
+          filename={`班级统计分析-${moment().format('YYYY-MM-DD-HH-mm-ss')}`}
+          sheet={"sheet1"}
+          buttonText="Download as XLS"/>
+      </div>
+
+    </Card>
+  )
 }
 export default Statistics;

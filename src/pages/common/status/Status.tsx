@@ -123,11 +123,11 @@ const Status: React.FC<IProps> = ({}) => {
     // eslint-disable-next-line
   }, [listQuery]);
   const columns: any[] = [
-    {
-      title: '#',
-      dataIndex: 'id',
-      width: '10%'
-    },
+    // {
+    //   title: '#',
+    //   dataIndex: 'id',
+    //   width: '10%'
+    // },
     {
       title: '用户',
       dataIndex: 'avatar',
@@ -149,8 +149,10 @@ const Status: React.FC<IProps> = ({}) => {
         <>
           <Tag
             onClick={() => {
-              setCurrentRow(record)
-              setModalVisible(true)
+              if (text !== 'PENDING' && text !== 'UNKNOWN_ERROR') {
+                setCurrentRow(record)
+                setModalVisible(true)
+              }
             }}
             {...JudgeConditionMap[text]}>
             {JudgeConditionMap[text].name}
@@ -265,7 +267,7 @@ const Status: React.FC<IProps> = ({}) => {
     </Card>
     <Drawer
       title="评测结果详情"
-      width={750}
+      width={800}
       // onClose={onClose}
       onClose={() => {
         setModalVisible(false)
@@ -311,19 +313,21 @@ const Status: React.FC<IProps> = ({}) => {
           </Descriptions.Item>
 
           <Descriptions.Item label="代码" span={2}>
+            <div style={{maxWidth: 550, margin:'0!important'}}>
+              <CodeMirror
+                options={{...options}}
+                value={currentRow.codeContent}
+                onChange={(editor, data, value) => {
+                }}
+                onBeforeChange={(editor, data, value) => {
+                }}
+              />
+            </div>
 
-            <CodeMirror
-              options={{...options}}
-              value={currentRow.codeContent}
-              onChange={(editor, data, value) => {
-              }}
-              onBeforeChange={(editor, data, value) => {
-              }}
-            />
           </Descriptions.Item>
 
           <Descriptions.Item label="评测机返回" span={2}>
-            <Input.TextArea disabled value={currentRow.judgeResult.extraInfo} autoSize/>
+            <Input.TextArea disabled value={currentRow.judgeResult.extraInfo} autoSize={{maxRows: 10}}/>
 
           </Descriptions.Item>
         </Descriptions>

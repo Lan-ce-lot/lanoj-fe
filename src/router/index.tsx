@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Navigate, RouteObject, useRoutes} from "react-router-dom";
 import Error from "../pages/admin/404/Error";
 import {commonRouter} from "./common";
@@ -11,15 +11,23 @@ import ProblemLayout from "../layout/problem/ProblemLayout";
 import ProblemDetail from "../pages/common/problem/problemDetail";
 import ProblemSubmissions from "../pages/common/problem/problemDetail/components/ProblemSubmissions";
 import ProblemContent from "../pages/common/problem/problemDetail/components/ProblemContent";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
+import {toggleSiderBar} from "../store/actions";
+import store from "../store";
 
+/**
+ * 动态渲染路由
+ * 路由应分为4类
+ * Root/Admin
+ * Teacher
+ * Common
+ * Guest
+ */
 
 const router: any[] = [
   commonRouter,
   adminRouter,
-  // {
-  //   path: "/test",
-  //   element: <Table/>
-  // },
   {
     path: "/test",
     element: <ProblemLayout/>,
@@ -39,7 +47,7 @@ const router: any[] = [
     element: <ProblemLayout/>,
     children: [
       {
-        index:true,
+        index: true,
         element: <ProblemContent/>
         // index: true,
         // element: <Navigate to={"/problems"}/>,
@@ -95,13 +103,54 @@ export const change = (routers: ConcreteRouterObject[]): RouteObject[] => {
   })
   return newRouters
 }
-export const Router: React.FC = () => useRoutes(change(router))
-export const MyRouter: React.FC<any> = () => {
 
-  return (
-    <Router>
-
-    </Router>
-  )
+interface IProps {
+  id?: string;
+  role?: string;
+  loading?:boolean;
 }
-export default router;
+
+export const MyRouter: React.FC<IProps> = (props) => {
+  const {role, id} = props
+  const [allowRouter, setAllowRouter] = useState<any[]>(router)
+  useEffect(() => {
+    setAllowRouter([allowRouter[0], allowRouter[allowRouter.length - 3], allowRouter[allowRouter.length - 1]])
+    if (store.getState().user.role === 'Root') {
+      setAllowRouter(router)
+    }
+
+    // alert(store.getState().user.role)
+    // console.log(allowRouter)
+    // tree -> array
+
+    // filter by role
+
+    // array -> tree
+
+  }, [store.getState().user.role])
+  
+  return <div>
+    {useRoutes(allowRouter)}
+  </div>
+
+  // return useRoutes(router)
+}
+
+
+const mapStateToProps = (state: any) => {
+  // alert(1)
+  return {
+    ...state.app,
+    ...state.user
+  };
+};
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    onCollapseChange(sidebarCollapsed: boolean) {
+      dispatch(toggleSiderBar(sidebarCollapsed))
+    }
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps
+  , undefined, {pure: false}
+)(MyRouter);
