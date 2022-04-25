@@ -11,10 +11,6 @@ import {useParams} from "react-router-dom";
 import moment from "moment";
 import {DEFAULT_DATE_TIME_FORMAT} from "../../../../../config/config";
 import * as XLSX from 'xlsx'
-// @ts-ignore
-import ReactHTMLTableToExcel from 'react-html-table-to-excel'
-
-//import styles from './Statistics.module.scss'
 
 interface IProps {
 
@@ -25,16 +21,41 @@ const Statistics: React.FC<IProps> = ({}) => {
   const [list, setList] = useState<IStatisticsItem[]>(
     []
   )
+  const [tmpData, setTmpData] = useState<any>()
   const [loading, setLoading] = useState<boolean>(false)
   const [total, setTotal] = useState<number>(0)
   const [listQuery, setListQuery] = useState<any>({
     pageSize: 100,
     current: 1,
   })
+  let newData = {}
   const fetchData = () => {
     setLoading(true)
     getStatistics(Number(classId)).then(res => {
       const {data} = res.data
+      newData = data.statisticsItemList.map((it: IStatisticsItem, key: number) => {
+        const map = new Map()
+        it.exerciseItemList.map((j: any) => {
+          map.set(j.exerciseName, j.totalAC)
+          // return
+        })
+        const obj = [...map.entries()].reduce((obj, [key, value]) => (obj[key] = value, obj), {})
+        // return {...obj, ...it}
+        return {
+          // username: it.username,
+          // realName: it.realName,
+          // totalSolve: it.totalSolve,
+          // totalTimePenalty: it.totalTimePenalty
+          '排名': key + 1,
+          '用户名': it.username,
+          '姓名': it.realName,
+          '总过题数': it.totalSolve,
+          '总罚时': it.totalTimePenalty
+          , ...obj
+        }
+      })
+      console.log(newData)
+      setTmpData(newData)
       setList(data.statisticsItemList)
       setTotal(data.total)
       setLoading(false)
@@ -44,6 +65,10 @@ const Statistics: React.FC<IProps> = ({}) => {
     fetchData()
   }, [listQuery])
   const columns: any = [
+    {
+      title: '排名',
+      render: (text: any, record: any, index: any) => `${index + 1}`,
+    },
     {
       title: '姓名',
       dataIndex: 'realName',
@@ -78,22 +103,42 @@ const Statistics: React.FC<IProps> = ({}) => {
       }
     )
   })
-  // const exportExcel = () => {
-  //   const cloneDivNode = document.getElementById('antdTable')?.cloneNode(true);
-  //   const table = document.createElement('table')
-  //   table.appendChild(cloneDivNode!);
-  //   table.setAttribute('id', 'table-to-xls');
-  //   document.getElementById('root')?.appendChild(table);
-  //   document.getElementById('test-table-xls-button')?.click();
-  //   setTimeout(() => {
-  //     document.getElementById('root')?.removeChild(table);
-  //   }, 500)
-  // }
+  // 导出 Excel
+  const exportExcel = () => {
+    // console.log('exportExcel')
+    // 组装数据
+    console.log(tmpData)
+    console.log(tmpData[0])
+    const exportData = [Object.keys(tmpData[0])]
+    console.log(exportData)
+    for (let i = 0; i < list.length; i++) {
+      exportData.push(Object.values(tmpData[i]))
+
+      // 对字段进行个性化处理，例如：创建时间
+      // exportData.push(
+      //   // Object.keys(tmpData[i])
+      //   // newData[i]['id'],
+      //   // newData[i]['username'],
+      //   // newData[i]['realName'],
+      //   // newData[i]['totalSolve'],
+      //   // newData[i]['totalTimePenalty'],
+      //   // moment(list[i]['created']).format(DEFAULT_DATE_TIME_FORMAT),
+      // )
+    }
+
+    // 转成 workbook
+    const ws = XLSX.utils.aoa_to_sheet(exportData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "SheetJS");
+
+    // 生成 excel 文件
+    XLSX.writeFile(wb, `班级统计分析-${moment().format('YYYY-MM-DD-HH-mm-ss')}.xlsx`)
+  }
   return (<Card
       style={{minHeight: 410}}
       title={'班级练习统计'}
       extra={<>
-        <Button onClick={exportExcel}>导出</Button>
+        <Button type={"primary"} onClick={exportExcel}>导出</Button>
       </>}
     >
       <Table
@@ -105,18 +150,7 @@ const Statistics: React.FC<IProps> = ({}) => {
         loading={loading}
         scroll={{x: 1100}}
         pagination={false}
-      >
-
-      </Table>
-      <div style={{display: 'none'}}>
-        <ReactHTMLTableToExcel
-          id="test-table-xls-button"
-          // className="download-table-xls-button"
-          table="table-to-xls"
-          filename={`班级统计分析-${moment().format('YYYY-MM-DD-HH-mm-ss')}`}
-          sheet={"sheet1"}
-          buttonText="Download as XLS"/>
-      </div>
+      />
 
     </Card>
   )
