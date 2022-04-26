@@ -9,12 +9,16 @@ import Loading from "./components/Loading";
 import enUS from 'antd/lib/locale/en_US';
 import zhCN from 'antd/lib/locale/zh_CN';
 import Loader from "./components/Loader/Loader";
-import {ConfigProvider} from "antd";
+import {ConfigProvider, message} from "antd";
 
 interface AppProps {
 }
 
 const App: React.FunctionComponent<AppProps> = (props) => {
+  message.config({
+    duration: 1,
+    maxCount: 3,
+  });
   console.log(
     String.raw`
 

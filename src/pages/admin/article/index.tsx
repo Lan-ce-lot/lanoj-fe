@@ -8,7 +8,7 @@ import React, {useEffect, useState} from "react";
 import {deleteProblem, getProblemList, initProblem, IProblem, IProblemQuery} from "../../../api/admin/problem";
 import {Link, useNavigate} from "react-router-dom";
 import {ITag} from "../../../api/admin/tag";
-import {Button, Col, Divider, Drawer, Form, Input, message, Popconfirm, Row, Switch, Table, Tag} from "antd";
+import {Button, Col, Divider, Drawer, Form, Input, message, Popconfirm, Row, Switch, Table, Tag, Tooltip} from "antd";
 import moment from "moment";
 import {DEFAULT_DATE_TIME_FORMAT} from "../../../config/config";
 import Page from "../../../components/Page/Page";
@@ -57,15 +57,23 @@ const Article: React.FC<IProps> = ({}) => {
     {
       title: <span>标题</span>,
       dataIndex: 'title',
+      ellipsis: {
+        showTitle: false,
+      },
       width: '18%',
       render: (text: any, record: any) =>
-        <Button type={"link"}
-                onClick={() => {
-                  setCurrentRow(record)
-                  setVisible(true)
-                }}
-        >
-          {text}</Button>,
+        <Tooltip placement="topLeft" title={text}>
+          {text}
+          {/*<Button type={"link"}*/}
+          {/*        onClick={() => {*/}
+          {/*          setCurrentRow(record)*/}
+          {/*          setVisible(true)*/}
+          {/*        }}*/}
+          {/*>*/}
+          {/*  {text}*/}
+          {/*</Button>*/}
+        </Tooltip>
+      ,
     },
     {
       title: <span>状态</span>,
@@ -105,10 +113,18 @@ const Article: React.FC<IProps> = ({}) => {
     {
       title: '操作',
       fixed: 'right' as const,
-      width: '10%',
+      width: '15%',
       render: (text: any, record: any) => {
         return (
           <>
+            <Button type={"link"}
+                    onClick={() => {
+                      setCurrentRow(record)
+                      setVisible(true)
+                    }}
+            >
+              {'查看'}
+            </Button>
             <Popconfirm placement="top" title={'确认删除'}
                         onConfirm={handleDelete.bind(null, record)}
                         okText="确认"
