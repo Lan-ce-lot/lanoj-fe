@@ -48,6 +48,7 @@ const CodeBlock: React.FunctionComponent<CodeBlockProps> = (props) => {
 
   return (
     <div
+      style={{border: '1px solid #f0f0f0', borderRadius: 1}}
       onMouseOver={() => setIsCodeHover(true)}
       onMouseLeave={() => setIsCodeHover(false)}
     >

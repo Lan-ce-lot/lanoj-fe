@@ -82,7 +82,7 @@ const ProblemContent: React.FC<IProps> = ({}) => {
           <ProblemMarked data={problem!.inputDescription}/>
           <h2>输出描述</h2>
           <ProblemMarked data={problem!.outputDescription}/>
-          <Row>
+          <Row gutter={24}>
 
             <Col lg={12}>
               <h2>样例输入</h2>
