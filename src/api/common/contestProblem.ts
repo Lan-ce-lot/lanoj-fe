@@ -39,7 +39,7 @@ export interface IContestProblem extends BaseModel {
 
 export interface IContestProblemQuery extends IPageQuery {
   id?: number;
-  userId: number;
+  userId?: number;
   contestId: number;
 }
 

@@ -107,15 +107,15 @@ export const change = (routers: ConcreteRouterObject[]): RouteObject[] => {
 interface IProps {
   id?: string;
   role?: string;
-  loading?:boolean;
+  loading?: boolean;
 }
 
 export const MyRouter: React.FC<IProps> = (props) => {
   const {role, id} = props
   const [allowRouter, setAllowRouter] = useState<any[]>(router)
   useEffect(() => {
-    setAllowRouter([allowRouter[0], allowRouter[allowRouter.length - 3], allowRouter[allowRouter.length - 1]])
-    if (store.getState().user.role === 'Root') {
+    setAllowRouter([allowRouter[0], allowRouter[allowRouter.length - 3], allowRouter[allowRouter.length - 2], allowRouter[allowRouter.length - 1]])
+    if (store.getState().user.role === 'Root' || 'Teacher' || 'Admin') {
       setAllowRouter(router)
     }
 
@@ -128,7 +128,7 @@ export const MyRouter: React.FC<IProps> = (props) => {
     // array -> tree
 
   }, [store.getState().user.role])
-  
+
   return <div>
     {useRoutes(allowRouter)}
   </div>

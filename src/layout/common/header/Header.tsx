@@ -31,6 +31,7 @@ import Logo from "../../../components/Logo/Logo";
 import {IUser} from "../../../api/admin/user";
 import {commonMenuList} from "../../../router/commonMenuList";
 import CommonMenu from "./CommonMenu/CommonMenu";
+import store from "../../../store";
 
 const {SubMenu} = Menu
 
@@ -107,10 +108,13 @@ const Header: React.FC<HeaderProps> = ({onDelUserToken, token}) => {
           </Link>
         </Menu.Item>
         {
-          Cookies.get('token') &&
-          (parseToken(Cookies.get('token')!).role === 'Root' ||
-            parseToken(Cookies.get('token')!).role === 'Admin' ||
-            parseToken(Cookies.get('token')!).role === 'Teacher'
+          // Cookies.get('token') &&
+          // (parseToken(Cookies.get('token')!).role === 'Root' ||
+          //   parseToken(Cookies.get('token')!).role === 'Admin' ||
+          //   parseToken(Cookies.get('token')!).role === 'Teacher'
+          // ) &&
+          (store.getState().user.role === 'Root' || store.getState().user.role === 'Admin'
+            || store.getState().user.role === 'Teacher'
           ) &&
           <Menu.Item key="admin">
             <Link to={'/admin'}>
@@ -127,6 +131,7 @@ const Header: React.FC<HeaderProps> = ({onDelUserToken, token}) => {
   // 指尖跃动的换行符, 是我此生不变的信仰
   return (
     <Layout.Header style={{
+      boxShadow: '4px 4px 40px 0 rgba(0, 0, 0, 0.15)',
       backgroundColor: '#fff',
       // zIndex:'1000000',
       // borderBottom: 'solid 1px #666'
@@ -143,21 +148,22 @@ const Header: React.FC<HeaderProps> = ({onDelUserToken, token}) => {
                   LANOJ
                 </div>
               </div>
-
             </Link>
           </div>
         </Col>
-        <Col xs={0} sm={0} md={15} lg={15}>
+        <Col xs={0} sm={0} md={14} lg={12}>
           <Row gutter={24} justify={'space-between'}>
             <Col xs={0} sm={0} md={14} lg={24}>
               <CommonMenu/>
             </Col>
           </Row>
         </Col>
-        <Col xs={3} sm={3} md={3} lg={3}
-             style={{display: "flex",
+        <Col xs={4} sm={4} md={4} lg={6}
+             style={{
+               display: "flex",
                alignItems: 'center',
-               justifyContent: "end"}}
+               justifyContent: "end"
+             }}
         >
           {
             !token ?

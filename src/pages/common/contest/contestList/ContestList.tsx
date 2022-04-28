@@ -10,6 +10,8 @@ import {
   EditOutlined,
   EllipsisOutlined, ClockCircleOutlined, UserOutlined, TeamOutlined, SearchOutlined
 } from '@ant-design/icons';
+import img from './contest.webp';
+import {Image} from 'antd';
 import {Link} from "react-router-dom";
 import Meta from "antd/es/card/Meta";
 import Title from "antd/es/typography/Title";
@@ -164,9 +166,22 @@ const ContestList: React.FunctionComponent<ContestHomeProps> = (props) => {
                     >
                       <Meta
                         avatar={
-                          <Avatar
-                            size={120}
-                            shape={"square"} src={`https://joeschmoe.io/api/v1/${item.id}`}/>}
+                          <Image
+                            preview={false}
+                            width={200}
+                            // size={120}
+                            // shape={"square"}
+                            // contest.webp
+                            src={img}
+                          />
+                          // <Avatar
+                          //   size={120}
+                          //   shape={"square"}
+                          //   // contest.webp
+                          //   src={img}
+                          // />
+                        }
+                        // src={`https://joeschmoe.io/api/v1/${item.id}`}/>}
                         title={<Title level={3}><Link to={`/contest/${item.id}`}>{item.name}  </Link></Title>}
                         description={
                           <>

@@ -155,7 +155,7 @@ const ContestProblem: React.FC<IProps> = ({loading}) => {
     getContestProblemDetail({
       id: Number(problemId),
       contestId: Number(contestId),
-      userId: store.getState().user.id
+      // userId: store.getState().user.id
     }).then((res: any) => {
       const {data} = res.data
       setProblem(data)

@@ -60,11 +60,6 @@ const Rank: React.FC<IProps> = ({}) => {
       dataIndex: 'ac',
       width: '20%'
     },
-    // {
-    //   title: '总数',
-    //   dataIndex: 'total',
-    //   width: '20%'
-    // },
   ]
   return (<>
       <div className={styles.rank}>
