@@ -10,6 +10,7 @@ import enUS from 'antd/lib/locale/en_US';
 import zhCN from 'antd/lib/locale/zh_CN';
 import Loader from "./components/Loader/Loader";
 import {ConfigProvider, message} from "antd";
+import QueueAnim from "rc-queue-anim";
 
 interface AppProps {
 }
@@ -35,6 +36,7 @@ const App: React.FunctionComponent<AppProps> = (props) => {
   return (
     <Provider store={store}>
       <ConfigProvider locale={zhCN}>
+
         <BrowserRouter>
 
           {/*<Loader />*/}
@@ -42,6 +44,7 @@ const App: React.FunctionComponent<AppProps> = (props) => {
           <MyRouter/>
 
         </BrowserRouter>
+
       </ConfigProvider>
     </Provider>
   );

@@ -5,14 +5,14 @@
  * @Date: 2022/4/6 15:18
  */
 import React, {useEffect, useState} from "react";
-import {Button, Card, ConfigProvider, Empty, Form, Image, Input, message, Popconfirm, Table, Tag} from "antd";
+import {Button, Card, ConfigProvider, Empty, Form, Image, Input, message, Popconfirm, Space, Table, Tag} from "antd";
 import {DEFAULT_DATE_TIME_FORMAT, EMPTY_IMAGE} from "../../../../config/config";
 import {Link, useNavigate} from "react-router-dom";
 import {deleteProblem, getProblemList, initProblem, IProblem, IProblemQuery} from "../../../../api/admin/problem";
 import {ITag} from "../../../../api/admin/tag";
 import moment from "moment";
 import Page from "../../../../components/Page/Page";
-import {SearchOutlined} from "@ant-design/icons";
+import {SearchOutlined, TeamOutlined} from "@ant-design/icons";
 import {getJoinClassPage, IJoinClass, IJoinClassQuery, initJoinClass} from "../../../../api/admin/classes";
 import store from "../../../../store";
 import ClassEmpty from '../../../../assets/教育类app-缺省页_暂无班级.svg'
@@ -43,7 +43,8 @@ const customizeRenderEmpty = () => (
 );
 const ClassJoin: React.FC<IProps> = ({}) => {
   const [list, setList] = useState<IJoinClass[]>(
-    [initJoinClass
+    [
+      // initJoinClass
     ]
   )
   const [loading, setLoading] = useState<boolean>(false)
@@ -54,7 +55,6 @@ const ClassJoin: React.FC<IProps> = ({}) => {
     name: '',
     userId: store.getState().user.id
   })
-  const navigate = useNavigate()
   const columns = [
     {
       title: <span>id</span>,
@@ -74,7 +74,13 @@ const ClassJoin: React.FC<IProps> = ({}) => {
     {
       title: '成员人数',
       dataIndex: 'memberNumber',
-      render: (text: string) => <span>{text}</span>,
+      render: (text: string) => <span>
+        <Space>
+                  <TeamOutlined/>
+          {text}
+        </Space>
+
+      </span>,
     },
     {
       title: <span>创建时间</span>,

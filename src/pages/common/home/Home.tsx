@@ -15,6 +15,7 @@ import Rank from "./components/Rank"
 import ScrollBar from "../../../layout/admin/ScrollBar";
 import RecentOtherContest from "./components/RecentOtherContest";
 import Notice from "./components/Notice";
+import RcQueueAnim from "rc-queue-anim";
 
 interface HomeProps {
 
@@ -34,7 +35,10 @@ const Home: React.FunctionComponent<HomeProps> = (props) => {
       className={styles.dashboard}
     >
       <Row gutter={24}>
-        <Col lg={15} md={24}>
+
+        <Col
+          key={'img'}
+          lg={15} md={24}>
           <Card
             title={"欢迎来到LANOJ"}
             bordered={false}
@@ -46,7 +50,9 @@ const Home: React.FunctionComponent<HomeProps> = (props) => {
             <CommonCarousel/>
           </Card>
         </Col>
-        <Col lg={9} md={24}>
+        <Col
+          key={'rank'}
+          lg={9} md={24}>
           <Card
             title={"排行榜"}
             bordered={false}
@@ -59,7 +65,9 @@ const Home: React.FunctionComponent<HomeProps> = (props) => {
             </ScrollBar>
           </Card>
         </Col>
-        <Col lg={15} md={24}>
+        <Col
+          key={'other'}
+          lg={15} md={24}>
           <Card
             title={"其他OJ近期比赛"}
             bordered={false}
@@ -68,7 +76,9 @@ const Home: React.FunctionComponent<HomeProps> = (props) => {
             <RecentOtherContest/>
           </Card>
         </Col>
-        <Col lg={9} md={24}>
+        <Col
+          key={'notice'}
+          lg={9} md={24}>
           <Card
             title={"公告"}
             bordered={false}
@@ -76,6 +86,7 @@ const Home: React.FunctionComponent<HomeProps> = (props) => {
             <Notice/>
           </Card>
         </Col>
+
       </Row>
 
     </Page>

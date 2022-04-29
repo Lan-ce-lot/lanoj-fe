@@ -15,6 +15,7 @@ import Page from "../../../components/Page/Page";
 import {SearchOutlined} from "@ant-design/icons";
 import {deleteArticle, getArticlePage, IArticleQuery} from "../../../api/admin/article";
 import BetterMarked from "../../../components/OhMyMarked/BetterMarked";
+import RcQueueAnim from "rc-queue-anim";
 
 //import styles from './Article.module.scss'
 
@@ -182,8 +183,11 @@ const Article: React.FC<IProps> = ({}) => {
 
   return (
     <Page inner>
+
       <div className="app-container">
+
         <Form
+          // key={'from'}
           layout="inline"
         >
           <Form.Item name="name">
@@ -201,6 +205,7 @@ const Article: React.FC<IProps> = ({}) => {
         </Form>
         <br/>
         <Table
+          // key={'table'}
           dataSource={list}
           bordered
           columns={columns}

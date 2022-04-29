@@ -16,9 +16,7 @@ import {Link} from "react-router-dom";
 import Meta from "antd/es/card/Meta";
 import Title from "antd/es/typography/Title";
 import {getContestList, IContest, IContestQuery} from "../../../../api/admin/contest";
-import {IProblemQuery} from "../../../../api/admin/problem";
-import {ContestCondition, ContestStatusEnum, JudgeCondition} from "../../../../common/enumerations";
-import {SUBMISSION_REQUEST_TASK_TIME} from "../contestDetail/ContestDetail";
+import {ContestCondition, ContestStatusEnum} from "../../../../common/enumerations";
 import {ContestStatusToCN, ContestStatusToColorMap} from "../../../../common/map";
 
 interface ContestHomeProps {
@@ -74,7 +72,10 @@ const ContestList: React.FunctionComponent<ContestHomeProps> = (props) => {
       })
       setContestList(list)
       setTotal(data.total)
-      setLoading(false)
+      setTimeout(() => {
+        setLoading(false)
+      }, 1000)
+
     })
   }
   useEffect(() => {
@@ -101,7 +102,7 @@ const ContestList: React.FunctionComponent<ContestHomeProps> = (props) => {
     )
   }
   return (
-    <Page className={styles.dashboard}>
+    <Page>
       <Row gutter={24}>
         <Col lg={24} md={24}>
           <Card
@@ -149,7 +150,7 @@ const ContestList: React.FunctionComponent<ContestHomeProps> = (props) => {
                 current: listQuery.current,
                 showSizeChanger: true,
                 showQuickJumper: true,
-                hideOnSinglePage: true
+                // hideOnSinglePage: true
               }}
               dataSource={contestList as any}
               renderItem={(item: any) => (
@@ -157,66 +158,64 @@ const ContestList: React.FunctionComponent<ContestHomeProps> = (props) => {
                   size="large"
                   // className="Item"
                 >
-                  {/*<Skeleton loading={loading} active avatar>*/}
-                  <Badge.Ribbon
-                    color={"gold"}
-                    text={<><Badge/>RATING</>}>
-
-                    <Card
-                    >
-                      <Meta
-                        avatar={
-                          <Image
-                            preview={false}
-                            width={200}
-                            // size={120}
-                            // shape={"square"}
-                            // contest.webp
-                            src={img}
-                          />
-                          // <Avatar
-                          //   size={120}
-                          //   shape={"square"}
-                          //   // contest.webp
-                          //   src={img}
-                          // />
-                        }
-                        // src={`https://joeschmoe.io/api/v1/${item.id}`}/>}
-                        title={<Title level={3}><Link to={`/contest/${item.id}`}>{item.name}  </Link></Title>}
-                        description={
-                          <>
-                            <Row gutter={[24, 2]}>
-                              <Col lg={24} md={24} sm={24} xs={24}>
-                                <IconText icon={ClockCircleOutlined}
-                                          text={`开始时间: ${item.startTime}`}
-                                          key="list-vertical-star-o"/>
-                              </Col>
-                              <Col lg={12} md={12} sm={20} xs={24}>
-                                <IconText icon={ClockCircleOutlined}
-                                          text={`结束时间: ${item.endTime}`}
-                                          key="list-vertical-star-o"/>
-                              </Col>
-                              <Col style={{display: "flex", justifyContent: "right"}} lg={12} md={12} sm={4} xs={24}>
-                                <Tag color={ContestStatusToColorMap[item.status as ContestStatusEnum]}>
-                                  <Badge status={ContestStatusToColorMap[item.status as ContestStatusEnum]}
-                                         text={ContestStatusToCN[item.status as ContestStatusEnum]}/>
-                                </Tag>
-                              </Col>
-                              <Col lg={24}>
-                                <Space size={8}>
-                                  <IconText icon={TeamOutlined} text={`参加人数: ${item.personNumber}`}
-                                            key="list-vertical-like-o"/>
-                                  <IconText icon={UserOutlined} text={`创建人: ${item.creatorName}`}
-                                            key="list-vertical-message"/>
-                                </Space>
-                              </Col>
-                            </Row>
-                          </>
-                        }
-                      />
-                    </Card>
-                  </Badge.Ribbon>
-                  {/*</Skeleton>*/}
+                  <Skeleton loading={loading} active avatar>
+                    <Badge.Ribbon
+                      color={"gold"}
+                      text={<><Badge/>RATING</>}>
+                      <Card
+                      >
+                        <Meta
+                          avatar={
+                            <Image
+                              preview={false}
+                              width={200}
+                              // size={120}
+                              // shape={"square"}
+                              src={img}
+                            />
+                            // <Avatar
+                            //   size={120}
+                            //   shape={"square"}
+                            //   // contest.webp
+                            //   src={img}
+                            // />
+                          }
+                          // src={`https://joeschmoe.io/api/v1/${item.id}`}/>}
+                          title={<Title level={3}><Link to={`/contest/${item.id}`}>{item.name}  </Link></Title>}
+                          description={
+                            <>
+                              <Row gutter={[24, 2]}>
+                                <Col lg={24} md={24} sm={24} xs={24}>
+                                  <IconText icon={ClockCircleOutlined}
+                                            text={`开始时间: ${item.startTime}`}
+                                            key="list-vertical-star-o"/>
+                                </Col>
+                                <Col lg={12} md={12} sm={20} xs={24}>
+                                  <IconText icon={ClockCircleOutlined}
+                                            text={`结束时间: ${item.endTime}`}
+                                            key="list-vertical-star-o"/>
+                                </Col>
+                                <Col style={{display: "flex", justifyContent: "right"}} lg={12} md={12} sm={4} xs={24}>
+                                  <Tag color={ContestStatusToColorMap[item.status as ContestStatusEnum]}>
+                                    <Badge status={ContestStatusToColorMap[item.status as ContestStatusEnum]}
+                                           text={ContestStatusToCN[item.status as ContestStatusEnum]}/>
+                                  </Tag>
+                                </Col>
+                                <Col lg={24}>
+                                  <Space size={8}>
+                                    <IconText icon={TeamOutlined} text={`参加人数: ${item.personNumber}`}
+                                              key="list-vertical-like-o"/>
+                                    <IconText icon={UserOutlined} text={`创建人: ${item.creatorName}`}
+                                              key="list-vertical-message"/>
+                                  </Space>
+                                </Col>
+                              </Row>
+                            </>
+                          }
+                        />
+                      </Card>
+                    </Badge.Ribbon>
+                  </Skeleton>
                 </List>
               )}
             />

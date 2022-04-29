@@ -6,19 +6,16 @@
  */
 
 import React, {useContext, useEffect, useState} from 'react'
-import Page from "../../../components/Page/Page";
-import styles from "../../../admin/dashboard/index.module.scss";
 import {Card, Col, Row, List, Space, Avatar, Button, Input, Table, Affix, Skeleton} from "antd";
 import {
-  MessageOutlined,
   LikeOutlined,
-  StarOutlined,
   EditOutlined,
   SearchOutlined,
-  FieldTimeOutlined, ClockCircleOutlined, EyeOutlined, DeleteOutlined
+  ClockCircleOutlined, EyeOutlined
 } from '@ant-design/icons';
 import {Link} from "react-router-dom";
 import {getArticlePage, getRecentArticle, IArticle, IArticleQuery} from "../../../api/admin/article";
+import QueueAnim from "rc-queue-anim";
 
 interface IProps {
 
@@ -101,29 +98,31 @@ const Article: React.FC<IProps> = ({}) => {
           }}
           dataSource={list}
           renderItem={item => (
-            <List.Item
-              style={{backgroundColor: '#fff'}}
-              key={item.title}
-              actions={[
-                <Link to={`/user/${item.userId}`}><Space><Avatar src={item.avatar}/>{item.username}</Space></Link>,
-                <IconText icon={EyeOutlined} text="122" key="list-vertical-message"/>,
-                <IconText icon={LikeOutlined} text="56" key="list-vertical-like-o"/>,
-                <IconText icon={ClockCircleOutlined} text={item.createdAt} key="list-vertical-message"/>,
-                // <IconText icon={EditOutlined} text="编辑" key="EditOutlined"/>,
-                // <IconText icon={DeleteOutlined} text="删除" key="DeleteOutlined"/>,
-              ]}
-            ><Skeleton loading={loading} active avatar>
-              <List.Item.Meta
-                // avatar={<Space><Avatar src={item.avatar} />lacel</Space>}
-                title={<Space><Link to={`${item.id}`}>{item.title}</Link>
-                  {
-                    !item.problemId ? <></> :
-                      <Link to={`/problem/detail/${item.problemId}`}><Button size={"small"}>前往原题</Button></Link>
-                  }
-                </Space>}
-                description={item.description}
-              /></Skeleton>
-            </List.Item>
+
+              <List.Item
+                style={{backgroundColor: '#fff'}}
+                key={item.title}
+                actions={[
+                  <Link to={`/user/${item.userId}`}><Space><Avatar src={item.avatar}/>{item.username}</Space></Link>,
+                  <IconText icon={EyeOutlined} text="122" key="list-vertical-message"/>,
+                  <IconText icon={LikeOutlined} text="56" key="list-vertical-like-o"/>,
+                  <IconText icon={ClockCircleOutlined} text={item.createdAt} key="list-vertical-message"/>,
+                  // <IconText icon={EditOutlined} text="编辑" key="EditOutlined"/>,
+                  // <IconText icon={DeleteOutlined} text="删除" key="DeleteOutlined"/>,
+                ]}
+              ><Skeleton loading={loading} active avatar>
+                <List.Item.Meta
+                  // avatar={<Space><Avatar src={item.avatar} />lacel</Space>}
+                  title={<Space><Link to={`${item.id}`}>{item.title}</Link>
+                    {
+                      !item.problemId ? <></> :
+                        <Link to={`/problem/detail/${item.problemId}`}><Button size={"small"}>前往原题</Button></Link>
+                    }
+                  </Space>}
+                  description={item.description}
+                />
+              </Skeleton>
+              </List.Item>
           )}
         />
       </Col>
@@ -182,8 +181,6 @@ const Article: React.FC<IProps> = ({}) => {
         </Affix>
       </Col>
     </Row>
-
-
   </>)
 }
 export default Article;

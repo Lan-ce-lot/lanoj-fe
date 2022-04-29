@@ -67,11 +67,18 @@ const ProblemSubmissions: React.FC<IProps> = ({}) => {
     getSubmissionList(listQuery).then((res) => {
       if (res.data.code === 200) {
         setDatas(res.data.data.records)
+        setTotal(res.data.data.total)
       } else {
       }
     })
   }, [listQuery])
-
+  const changePage = (current: number, pageSize: number) => {
+    setListQuery({
+      ...listQuery,
+      current,
+      pageSize
+    })
+  };
   // 管理轮询任务
   useEffect(() => {
     const id = setInterval(() => {
@@ -92,26 +99,6 @@ const ProblemSubmissions: React.FC<IProps> = ({}) => {
     // eslint-disable-next-line
   }, [problemId, listQuery]);
   const columns: any[] = [
-    // {
-    //   title: '#',
-    //   dataIndex: 'id',
-    // },
-    // {
-    //   title: '用户',
-    //   dataIndex: 'username',
-    //   render: (text: any, record: any) => (
-    //     <>
-    //       {/*<Avatar style={{marginLeft: 8}}*/}
-    //       {/*        src={`http://dummyimage.com/100x100/f27993/757575.png&text=${record.name[0]}`}>*/}
-    //       {/*</Avatar>*/}
-    //       <span style={{marginLeft: '10px'}}>{record.username}</span>
-    //     </>
-    //   ),
-    // },
-    // {
-    //   title: '题目',
-    //   dataIndex: 'problemId',
-    // },
     {
       title: '状态',
       fixed: 'right',
@@ -181,11 +168,15 @@ const ProblemSubmissions: React.FC<IProps> = ({}) => {
         scroll={{x: 550}}
         dataSource={datas}
         pagination={{
+          total: total,
+          defaultPageSize: 10,
+          onChange: changePage,
+          current: listQuery.current,
           pageSizeOptions: ["10", "20"],
           showTotal: total => `共${total}条数据`,
           // onShowSizeChange: changePageSize,
           showSizeChanger: true,
-          showQuickJumper: true,
+          // showQuickJumper: true,
           // hideOnSinglePage: true
         }}
       >
