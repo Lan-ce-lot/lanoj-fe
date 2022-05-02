@@ -15,6 +15,7 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {toggleSiderBar} from "../store/actions";
 import store from "../store";
+import ContestProblem from "../pages/common/contest/contestDetail/ContestProblemList/Problem/ContestProblem";
 
 /**
  * 动态渲染路由
@@ -60,6 +61,52 @@ const router: any[] = [
     ]
   },
   {
+    path: "/problem/:id",
+    element: <ProblemLayout/>,
+    children: [
+      {
+        index: true,
+        element: <ProblemContent/>
+        // index: true,
+        // element: <Navigate to={"/problems"}/>,
+        // element: <ProblemDetail/>
+      },
+      {
+        path: "submissions",
+        element: <ProblemSubmissions/>
+      },
+    ]
+  },
+  {
+    path: '/contest/:contestId/problem/:problemId',
+    children: [
+      {
+        index: true,
+        element: <ProblemContent/>
+        // index: true,
+        // element: <Navigate to={"/problems"}/>,
+        // element: <ProblemDetail/>
+      },
+      {
+        path: "submissions",
+        element: <ProblemSubmissions/>
+      },
+    ]
+  },
+  {
+    path: '/class/exercise/:exerciseId/problem/:problemId',
+    children: [
+      {
+        index: true,
+        element: <ProblemContent/>,
+      },
+      {
+        path: "submissions",
+        element: <ProblemSubmissions/>,
+      },
+    ]
+  },
+  {
     path: '/login',
     element: <Login/>
   },
@@ -83,7 +130,6 @@ export interface ConcreteRouterObject {
   name?: string;
   roles?: string[];
   hidden?: true | false;
-
   [propName: string]: any;
 }
 

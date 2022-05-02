@@ -20,10 +20,7 @@ import ClassJoin from "../pages/common/class/ClassJoin";
 import Class from "../pages/common/class";
 import ClassList from "../pages/common/class/ClassList";
 import ClassHome from "../pages/common/class/ClassHome";
-import Detail from "../pages/common/class/ClassHome/Detail/Detail";
 import Article from "../pages/common/article";
-import Member from "../pages/common/class/ClassHome/Member/Member";
-import Exercise from "../pages/common/class/ClassHome/Exercise/Exercise";
 import Statistics from "../pages/common/class/ClassHome/Statistics/Statistics";
 import ArticleDetail from "../pages/common/article/Detail"
 import Edit from "../pages/common/article/Edit";
@@ -35,7 +32,6 @@ import ExerciseRank from "../pages/common/class/ClassHome/Exercise/Detail/compon
 import ExerciseProblemList from "../pages/common/class/ClassHome/Exercise/Detail/components/ExerciseProblemList";
 import ExerciseProblem from "../pages/common/class/ClassHome/Exercise/Detail/components/Problem/ExerciseProblem";
 import Test from "../pages/common/test";
-import ProblemLayout from "../layout/problem/ProblemLayout";
 
 // const commonRouterMenuList:RouteObject[] = {
 //
@@ -180,10 +176,6 @@ export const commonRouter: RouteObject = {
           element: <ContestList/>
           // element: <Navigate to={"/contest/list"}/>,
         },
-        // {
-        //   path: "list",
-        //   element: <ContestList/>
-        // },
         {
           path: ":contestId",
           element: <ContestDetail/>,

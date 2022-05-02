@@ -12,7 +12,9 @@ import axios from "axios";
 import {getOtherContest} from "../../../../api/common/home";
 import moment from "moment";
 import Ellipsis from "../../../../components/Ellipsis";
-const { Text, Link } = Typography;
+
+const {Text, Link} = Typography;
+
 interface IProps {
 
 }
@@ -23,36 +25,36 @@ interface IState {
 
 const RecentOtherContest: React.FC<IProps> = ({}) => {
   const [otherContest, setOtherContest] = useState();
+
   const columns = [
     {
-      title:<>近期比赛</>,
-      dataIndex:'title',
-      width:'50%',
+      title: <>近期比赛</>,
+      dataIndex: 'title',
+      width: '50%',
       ellipsis: {
         showTitle: false,
       },
-      render:(text:string, record:any) => {
+      render: (text: string, record: any) => {
         return (<>
           <Link href={record.url} target="_blank">
 
-          <Tooltip placement="topLeft" title={text}>
-            {text}
-          </Tooltip>
-        </Link>
+            <Tooltip placement="topLeft" title={text}>
+              {text}
+            </Tooltip>
+          </Link>
         </>)
       }
     },
     {
-      title:'比赛时间',
+      title: '比赛时间',
       dataIndex: 'beginTime',
       width: '50%',
-      showSorterTooltip:{title:'排序'},
-      sorter: (a:any, b:any) => a.beginTime - b.beginTime,
-      render:(text:any, record:any) => {
+      showSorterTooltip: {title: '排序'},
+      sorter: (a: any, b: any) => a.beginTime - b.beginTime,
+      render: (text: any, record: any) => {
         return (
           <>
-            {moment(record.beginTime).format("YYYY/MM/DD HH:mm:ss")}
-             ~ {moment(record.endTime).format("YYYY/MM/DD HH:mm:ss")}
+            {moment(record.beginTime).format("YYYY/MM/DD HH:mm:ss")} ~ {moment(record.endTime).format("YYYY/MM/DD HH:mm:ss")}
           </>
         )
       }
@@ -63,16 +65,17 @@ const RecentOtherContest: React.FC<IProps> = ({}) => {
     getOtherContest().then((res) => {
       setOtherContest(res.data.data)
     })
-  },[])
+  }, [])
 
   return (<>
     <div className={styles.otherContest}>
 
       <Table
+        // loading={loading}
         dataSource={otherContest}
         columns={columns}
         pagination={false}
-  />
+      />
     </div>
   </>)
 }

@@ -5,7 +5,7 @@
  * @Date: 2022/3/13 15:31
  */
 import React, {Fragment, useEffect, useState} from "react";
-import {Button, Col, Form, Input, message, Row} from "antd";
+import {Image, Button, Col, Form, Input, message, Row} from "antd";
 import GlobalFooter from "../../../layout/common/footer/Footer";
 
 import styles from './index.module.scss'
@@ -19,7 +19,7 @@ import {userLogin, setUserToken} from "../../../store/actions";
 interface IProps {
   token?: string;
   onSetUserToken?: any;
-  loading?:boolean;
+  loading?: boolean;
 }
 
 interface IState {
@@ -33,6 +33,7 @@ const Login: React.FC<IProps> = ({token, onSetUserToken, loading}) => {
   const [checkCode, setCheckCode] = useState('')
   const [checkCodeKey, setCheckCodeKey] = useState('')
   // 获取验证码信息
+
   const getCheckCode = () => {
     getCheckCodeInfo().then(res => {
       let checkCode: string = res.data.data.image
@@ -45,8 +46,8 @@ const Login: React.FC<IProps> = ({token, onSetUserToken, loading}) => {
     getCheckCode();
   }
   useEffect(() => {
+    // setTimeout(() => getCheckCode(), 5000)
     getCheckCode()
-    // alert(isUserLogin)
     if (token) {
       navigate('/home')
     }
@@ -113,14 +114,13 @@ const Login: React.FC<IProps> = ({token, onSetUserToken, loading}) => {
                 </Form.Item>
               </Col>
               <Col span={11}>
-                {
-                  <img
-                    src={checkCode}
-                    alt={'checkCode'}
-                    style={{marginLeft: 10}}
-                    onClick={() => onCheckCodeClick()}
-                  />
-                }
+                <Image
+                  preview={false}
+                  placeholder
+                  src={checkCode}
+                  alt={'checkCode'}
+                  style={{marginLeft: 10}}
+                  onClick={() => onCheckCodeClick()}/>
               </Col>
             </Row>
           }

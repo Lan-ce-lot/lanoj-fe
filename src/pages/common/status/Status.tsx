@@ -313,7 +313,10 @@ const Status: React.FC<IProps> = ({}) => {
           </Descriptions.Item>
 
           <Descriptions.Item label="代码" span={2}>
-            <div style={{maxWidth: 550, margin:'0!important'}}>
+            <div style={{
+              maxWidth: 550,
+              margin: 0
+            }}>
               <CodeMirror
                 options={{...options}}
                 value={currentRow.codeContent}
@@ -323,7 +326,14 @@ const Status: React.FC<IProps> = ({}) => {
                 }}
               />
             </div>
-
+            {/*<CodeMirror*/}
+            {/*  options={{...options}}*/}
+            {/*  value={currentRow.codeContent}*/}
+            {/*  onChange={(editor, data, value) => {*/}
+            {/*  }}*/}
+            {/*  onBeforeChange={(editor, data, value) => {*/}
+            {/*  }}*/}
+            {/*/>*/}
           </Descriptions.Item>
 
           <Descriptions.Item label="评测机返回" span={2}>
