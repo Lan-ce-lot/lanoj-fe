@@ -60,7 +60,7 @@ const ContestProblemList: React.FC<IProps> = ({}) => {
       title: '题目',
       dataIndex: 'name',
       render: (text: any, record: any) => (
-        <Link to={`${record.serialNumber}`}>
+        <Link to={`${record.problemId}`}>
           {record.name}
         </Link>
       )

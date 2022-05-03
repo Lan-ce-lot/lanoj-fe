@@ -104,8 +104,8 @@ const Article: React.FC<IProps> = ({}) => {
                 key={item.title}
                 actions={[
                   <Link to={`/user/${item.userId}`}><Space><Avatar src={item.avatar}/>{item.username}</Space></Link>,
-                  <IconText icon={EyeOutlined} text="122" key="list-vertical-message"/>,
-                  <IconText icon={LikeOutlined} text="56" key="list-vertical-like-o"/>,
+                  <IconText icon={EyeOutlined} text={item.click} key="list-vertical-message"/>,
+                  <IconText icon={LikeOutlined} text={item.likeNumber} key="list-vertical-like-o"/>,
                   <IconText icon={ClockCircleOutlined} text={item.createdAt} key="list-vertical-message"/>,
                   // <IconText icon={EditOutlined} text="编辑" key="EditOutlined"/>,
                   // <IconText icon={DeleteOutlined} text="删除" key="DeleteOutlined"/>,

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Navigate, RouteObject, useRoutes} from "react-router-dom";
+import {Navigate, RouteObject, Router, useRoutes} from "react-router-dom";
 import Error from "../pages/admin/404/Error";
 import {commonRouter} from "./common";
 import Login from '../pages/common/Login'
@@ -44,7 +44,7 @@ const router: any[] = [
     ]
   },
   {
-    path: "/problem/:id",
+    path: "/problem/:problemId",
     element: <ProblemLayout/>,
     children: [
       {
@@ -61,7 +61,7 @@ const router: any[] = [
     ]
   },
   {
-    path: "/problem/:id",
+    path: "/problem/:problemId",
     element: <ProblemLayout/>,
     children: [
       {
@@ -79,6 +79,7 @@ const router: any[] = [
   },
   {
     path: '/contest/:contestId/problem/:problemId',
+    element: <ProblemLayout/>,
     children: [
       {
         index: true,
@@ -94,7 +95,8 @@ const router: any[] = [
     ]
   },
   {
-    path: '/class/exercise/:exerciseId/problem/:problemId',
+    path: '/class/:classId/exercise/:exerciseId/problem/:problemId',
+    element: <ProblemLayout/>,
     children: [
       {
         index: true,
@@ -130,6 +132,7 @@ export interface ConcreteRouterObject {
   name?: string;
   roles?: string[];
   hidden?: true | false;
+
   [propName: string]: any;
 }
 
@@ -175,10 +178,9 @@ export const MyRouter: React.FC<IProps> = (props) => {
 
   }, [store.getState().user.role])
 
-  return <div>
+  return <>
     {useRoutes(allowRouter)}
-  </div>
-
+  </>
   // return useRoutes(router)
 }
 

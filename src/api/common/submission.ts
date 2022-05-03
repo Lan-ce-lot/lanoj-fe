@@ -17,6 +17,7 @@ export interface ISubmissionProps {
   language: string;
   contestId?:number;
   classId?:number;
+  judgerName?:string;
 }
 
 export interface ISubmissionQuery extends IPageQuery {

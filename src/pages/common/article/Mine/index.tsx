@@ -73,7 +73,11 @@ const Mine: React.FC<IProps> = ({}) => {
       title: '创建时间'
     },
     {
-      dataIndex: 'reads',
+      dataIndex: 'likeNumber',
+      title: '点赞量'
+    },
+    {
+      dataIndex: 'click',
       title: '浏览量'
     },
     {

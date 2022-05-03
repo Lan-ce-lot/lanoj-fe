@@ -10,6 +10,7 @@ import {getProblemList, initProblem, IProblem, IProblemQuery} from "../../../../
 import {Link} from "react-router-dom";
 import {ITag} from "../../../../api/admin/tag";
 import {SearchOutlined} from "@ant-design/icons";
+import {useForm} from "antd/es/form/Form";
 
 const {Column, ColumnGroup} = Table;
 
@@ -33,11 +34,12 @@ const ProblemList: React.FunctionComponent<ProblemHomeProps> = (props) => {
   const [loading, setLoading] = useState<boolean>(false)
   const [total, setTotal] = useState<number>(0)
   const [listQuery, setListQuery] = useState<IProblemQuery>({
-    pageSize: 10,
-    current: 1,
-    name: '',
-    tag: '',
-  })
+      pageSize: 10,
+      current: 1,
+      name: '',
+      tag: '',
+    }),
+    [tag, setTag] = useState<any>({name: '1', color: '#fff'})
 
   const columns = [
     {
@@ -110,8 +112,9 @@ const ProblemList: React.FunctionComponent<ProblemHomeProps> = (props) => {
   useEffect(() => {
     fetchData()
   }, [])
-
+  const [form] = useForm()
   const filterProblemNameChange = (e: any) => {
+
     setListQuery({
       ...listQuery,
       name: e.target.value
@@ -124,8 +127,13 @@ const ProblemList: React.FunctionComponent<ProblemHomeProps> = (props) => {
     })
   };
   useEffect(() => {
-    fetchData()
-  }, [listQuery])
+      fetchData()
+    },
+    [listQuery.id,
+      listQuery.pageSize,
+      listQuery.current,
+      listQuery.tag
+    ])
   const changePage = (current: number, pageSize: number) => {
     setListQuery({
       ...listQuery,
@@ -147,6 +155,8 @@ const ProblemList: React.FunctionComponent<ProblemHomeProps> = (props) => {
 
             extra={<>
               <Form
+
+                onFinish={fetchData}
                 layout="inline"
               >
                 <Tag
@@ -154,8 +164,10 @@ const ProblemList: React.FunctionComponent<ProblemHomeProps> = (props) => {
                   visible={listQuery.tag !== ''}
                   onClose={() => setListQuery({...listQuery, tag: ''})}
                   closable
+                  color={tag.color}
                 >{listQuery.tag}</Tag>
-                <Form.Item name="username">
+                <Form.Item
+                  name="problemName">
                   <Input
                     allowClear
                     onChange={filterProblemNameChange}
@@ -163,7 +175,9 @@ const ProblemList: React.FunctionComponent<ProblemHomeProps> = (props) => {
                   />
                 </Form.Item>
                 <Form.Item>
-                  <Button loading={loading} type="primary" icon={<SearchOutlined/>} onClick={fetchData}/>
+                  <Button loading={loading} type="primary" icon={<SearchOutlined/>}
+
+                          onClick={fetchData}/>
                 </Form.Item>
               </Form>
             </>}
@@ -180,7 +194,7 @@ const ProblemList: React.FunctionComponent<ProblemHomeProps> = (props) => {
                 onChange: changePage,
                 current: listQuery.current,
                 showSizeChanger: true,
-                showQuickJumper: true,
+                // showQuickJumper: true,
                 hideOnSinglePage: true
               }}
               columns={columns}
@@ -190,7 +204,10 @@ const ProblemList: React.FunctionComponent<ProblemHomeProps> = (props) => {
           </Card>
         </Col>
         <Col lg={7} md={24}>
-          <ProblemTags tagOnClick={(value: string) => setListQuery({...listQuery, tag: value})}/>
+          <ProblemTags tagOnClick={(value: any) => {
+            setTag(value)
+            setListQuery({...listQuery, tag: value.name})
+          }}/>
         </Col>
       </Row>
     </Page>

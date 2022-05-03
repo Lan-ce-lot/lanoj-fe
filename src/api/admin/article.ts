@@ -17,6 +17,8 @@ export interface IArticle extends BaseModel {
   problemId: number;
   problemName?: string;
   description?: string;
+  click?: number;
+  likeNumber?: number;
 }
 
 export interface IArticleQuery extends IPageQuery {
@@ -73,7 +75,27 @@ export const getRecentArticle = () => {
   )
 }
 
+export interface Ithumbs extends BaseModel {
+  userId: number;
+  articleId: number;
+}
 
+export const checkIsLike = (data: Ithumbs) => {
+  return request({
+      url: `/thumbs/check`,
+      method: 'post',
+      data
+    }
+  )
+}
+export const doLike = (data: Ithumbs) => {
+  return request({
+      url: `/thumbs`,
+      method: 'post',
+      data
+    }
+  )
+}
 export const initArticle: IArticle = {
   avatar: "",
   content: `

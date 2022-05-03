@@ -26,7 +26,7 @@ const TagWordCloud: React.FC<IProps> = ({}) => {
     let isRequestCancelled = false;
     getTagList({}).then(res => {
       // if (!isRequestCancelled) {
-        setData(res.data.data.records)
+      setData(res.data.data.records)
       // }
     })
     return () => {
@@ -35,6 +35,7 @@ const TagWordCloud: React.FC<IProps> = ({}) => {
   }, []);
   const config = {
     data,
+    height: 100,
     wordField: 'name',
     weightField: 'problemNumber',
     colorField: 'name',

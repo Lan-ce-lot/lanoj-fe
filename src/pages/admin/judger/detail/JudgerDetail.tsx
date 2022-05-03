@@ -60,11 +60,17 @@ const JudgerDetail: React.FC<IProps> = ({}) => {
       </Descriptions.Item>
       <Descriptions.Item label="地址">{judger?.baseUrl}</Descriptions.Item>
       <Descriptions.Item label="端口">{judger?.port}</Descriptions.Item>
-      <Descriptions.Item label="创建时间">
-        {judger?.createdAt}
-      </Descriptions.Item>
+      {/*<Descriptions.Item label="创建时间">*/}
+      {/*  {judger?.createdAt}*/}
+      {/*</Descriptions.Item>*/}
       <Descriptions.Item label="Cpu核心数" span={1}>
-        1
+        {judger?.condition?.cpuCoreAmount}
+      </Descriptions.Item>
+      <Descriptions.Item label="CPU占用" span={1}>
+        {judger?.condition?.cpuCostPercentage}%
+      </Descriptions.Item>
+      <Descriptions.Item label="内存占用" span={1}>
+        {judger?.condition?.memoryCostPercentage}%
       </Descriptions.Item>
     </Descriptions>
 

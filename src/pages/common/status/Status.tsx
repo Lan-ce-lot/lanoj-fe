@@ -294,7 +294,7 @@ const Status: React.FC<IProps> = ({}) => {
           </Descriptions.Item>
           <Descriptions.Item label="评测机" span={2}>
             {
-              currentRow.judgerId
+              currentRow.judgerName
             }
           </Descriptions.Item>
 

@@ -15,6 +15,17 @@ export interface IJudger extends BaseModel {
   baseUrl: string;
   port: number;
   isActive: boolean;
+  condition?:{
+    cpuCoreAmount?: number;
+    cpuCostPercentage?: number;
+    maxWorkingAmount?: number;
+    memoryCostPercentage?: number;
+    queueAmount?: number;
+    resolutionPath?: string;
+    scriptPath?: string;
+    workPath?: string;
+    workingAmount?: number;
+  }
 }
 
 export interface IJudgerQuery extends IPageQuery {

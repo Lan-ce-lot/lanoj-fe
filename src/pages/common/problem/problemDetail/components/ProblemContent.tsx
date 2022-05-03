@@ -29,13 +29,13 @@ interface IState {
 }
 
 const ProblemContent: React.FC<IProps> = ({}) => {
-  let {id} = useParams();
+  let {problemId} = useParams();
   const [loading, setLoading] = useState(false);
   const [problem, setProblem] = useState<IProblem>(initProblem)
   const [modalVisible, setModalVisible] = useState(false);
   const fetchData = () => {
     setLoading(true)
-    getProblemDetail(Number(id)).then((res) => {
+    getProblemDetail(Number(problemId)).then((res) => {
       const {data} = res.data
       setProblem(data)
       setLoading(false)

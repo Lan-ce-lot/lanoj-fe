@@ -47,7 +47,7 @@ const options = {
 // 查看当前提交轮询任务间隔时间，单位为毫秒
 export const SUBMISSION_REQUEST_TASK_TIME: number = 4000;
 const ProblemSubmissions: React.FC<IProps> = ({}) => {
-  const problemId = useParams().id
+  const problemId = useParams().problemId
   const userId = store.getState().user.id
   const [datas, setDatas] = useState([])
   const [currentRow, setCurrentRow] = useState<any>()

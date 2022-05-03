@@ -6,7 +6,7 @@
  */
 import React, {useEffect, useState} from "react";
 import Page from '../../../components/Page/Page'
-import {Row, Col, Card} from 'antd'
+import {Row, Col, Card, Descriptions} from 'antd'
 import styles from './index.module.scss'
 import {
   NumberCard,
@@ -16,6 +16,8 @@ import {
 import TagWordCloud from "../problem/ProblemTag/conponents/TagWordCloud";
 import SubmissionPie from "./charts/SubmissionPie";
 import {getHomeCount, IHomeCount} from "../../../api/admin/home";
+import store from "../../../store";
+import MixChart from "./components/MixChart";
 
 interface indexProps {
 
@@ -175,12 +177,21 @@ const Dashboard: React.FunctionComponent<indexProps> = (props) => {
         </Col>
         <Col lg={14} md={24}>
           <Card
+            title={'站内七天提交统计'}
             bordered={false}
-            bodyStyle={{
-              padding: '24px 36px 24px 0',
-            }}
+            // bodyStyle={{
+            //   padding: '24px 36px 24px 0',
+            // }}
           >
-            <Sales data={sales}/>
+            <MixChart/>
+            {/*<TagWordCloud/>*/}
+            {/*<Descriptions title={`欢迎,${store.getState().user.role}`} column={1} bordered>*/}
+            {/*  /!*<Descriptions.Item label="UserName">Zhou Maomao</Descriptions.Item>*!/*/}
+            {/*  <Descriptions.Item label="IP">1810000000</Descriptions.Item>*/}
+            {/*  <Descriptions.Item label="OS">Hangzhou, Zhejiang</Descriptions.Item>*/}
+            {/*  <Descriptions.Item label="浏览器">empty</Descriptions.Item>*/}
+            {/*</Descriptions>*/}
+            {/*<Sales data={sales}/>*/}
           </Card>
         </Col>
         <Col lg={10} md={24}>
@@ -196,26 +207,29 @@ const Dashboard: React.FunctionComponent<indexProps> = (props) => {
           </Card>
         </Col>
 
-        <Col lg={16} md={24}>
-          <Card
-            bordered={false}
-            bodyStyle={{
-              padding: '24px 36px 24px 0',
-            }}
-          >
-            <Completed data={completed}/>
-          </Card>
-        </Col>
-        <Col lg={8} md={24}>
-          <Card
-            bordered={false}
-            title={'标签词云'}
-            // bodyStyle={{ height:'300px'}}
-          >
-            <TagWordCloud/>
-            {/*<User {...user} avatar={avatar} username={username} />*/}
-          </Card>
-        </Col>
+        {/*<Col lg={24} md={24}>*/}
+        {/*  <Card*/}
+        {/*    bordered={false}*/}
+        {/*    title={'站内统计'}*/}
+        {/*    // bodyStyle={{*/}
+        {/*    //   padding: '24px 36px 24px 0',*/}
+        {/*    // }}*/}
+        {/*  >*/}
+        {/*    /!*<TagWordCloud/>*!/*/}
+        {/*    <MixChart/>*/}
+        {/*    /!*<Completed data={completed}/>*!/*/}
+        {/*  </Card>*/}
+        {/*</Col>*/}
+        {/*<Col lg={8} md={24}>*/}
+        {/*  <Card*/}
+        {/*    bordered={false}*/}
+        {/*    title={'标签词云'}*/}
+        {/*    // bodyStyle={{ height:'300px'}}*/}
+        {/*  >*/}
+        {/*    <TagWordCloud/>*/}
+        {/*    /!*<User {...user} avatar={avatar} username={username} />*!/*/}
+        {/*  </Card>*/}
+        {/*</Col>*/}
       </Row>
     </Page>
   </>)

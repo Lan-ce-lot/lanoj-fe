@@ -5,7 +5,7 @@
  * @Date: 2022/3/11 17:40
  */
 import React, {useEffect, useState} from "react";
-import {Card, Tag} from "antd";
+import {Card, Empty, Tag} from "antd";
 import {Link} from "react-router-dom";
 import {getUserAcceptProblems} from "../../../../api/common/userInfo";
 import {EMPTY_IMAGE} from "../../../../config/config";
@@ -32,13 +32,13 @@ const SolvedProblems: React.FC<IProps> = ({userId}) => {
   return (<>
     <>
       {
-        problems.length === 0 ? EMPTY_IMAGE :
+        problems.length === 0 ?  <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}/>:
           problems.map((item: any, key: any) => {
-            return (<Tag color={"green"} key={key}>
-              <Link to={`/problem/detail/${item.id}`}>
-                {item.id.toString().padStart(5,'0')}
-              </Link>
-            </Tag>)
+            return (<Link to={`/problem/${item.id}`}><Tag color={"green"} key={key}>
+
+              {item.id.toString().padStart(5, '0')}
+
+            </Tag></Link>)
           })
       }
     </>

@@ -43,6 +43,7 @@ export const commonRouter: RouteObject = {
   children: [
     {
       index: true,
+      path: '',
       element: <Navigate to={"/home"}/>
     },
     {

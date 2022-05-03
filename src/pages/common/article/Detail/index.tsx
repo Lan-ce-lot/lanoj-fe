@@ -9,7 +9,7 @@ import BetterMarked from "../../../../components/OhMyMarked/BetterMarked";
 
 import styles from './Detail.module.scss'
 import Page from "../../../../components/Page/Page";
-import {Affix, Avatar, Button, Card, Col, Empty, List, Row, Skeleton, Space} from "antd";
+import {Affix, Avatar, Button, Card, Col, Empty, List, message, Row, Skeleton, Space} from "antd";
 import {marked, Renderer} from "marked";
 import hljs from "highlight.js";
 import Tocify from "../../../../components/Tocify/Tocify";
@@ -24,12 +24,13 @@ import {
   StarOutlined
 } from "@ant-design/icons";
 import Title from "antd/es/typography/Title";
-import {getArticleDetail, IArticle, initArticle} from "../../../../api/admin/article";
+import {checkIsLike, doLike, getArticleDetail, IArticle, initArticle} from "../../../../api/admin/article";
 import {Link, useParams} from "react-router-dom";
 import moment from "moment";
 import {DATE_TIME_FORMAT_WITHOUT_TIME, DEFAULT_DATE_TIME_FORMAT, EMPTY_IMAGE} from "../../../../config/config";
 import ProblemMarked from "../../../../components/OhMyMarked/ProblemMarked";
 import ArticleMarked from "../../../../components/OhMyMarked/ArticleMarked";
+import store from "../../../../store";
 
 interface IProps {
 
@@ -46,7 +47,8 @@ const IconText = ({icon, text}: any) => (
   </Space>
 );
 const Detail: React.FC<IProps> = ({}) => {
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false),
+    [isLike, setIsLike] = useState<boolean>(false)
   const {articleId} = useParams();
   const tocify = new Tocify()
   const renderer = new Renderer()
@@ -63,6 +65,20 @@ const Detail: React.FC<IProps> = ({}) => {
       setArticle(data)
       // console.log()
       setLoading(false)
+    })
+    checkIsLike({userId: store.getState().user.id, articleId: Number(articleId)}).then(res => {
+      const {data} = res.data
+      setIsLike(data)
+    })
+  }
+
+  const clickLike = () => {
+    setLoading(true)
+    doLike({userId: store.getState().user.id, articleId: Number(articleId)}).then(res => {
+      // const {data} = res.data
+      message.success(res.data.msg)
+      fetchData()
+      // setLoading(false)
     })
   }
   useEffect(() => {
@@ -93,7 +109,11 @@ const Detail: React.FC<IProps> = ({}) => {
             </Title>}
             extra={
               <>
-                <Button icon={<LikeOutlined/>}>点赞</Button>
+                {
+                  isLike ? <Button onClick={clickLike} danger icon={<LikeOutlined/>}>取消</Button> :
+                    <Button onClick={clickLike} icon={<LikeOutlined/>}>点赞</Button>
+                }
+
                 {/*<Button type={"primary"} icon={<LikeFilled/>}>点赞</Button>*/}
               </>
             }
@@ -110,8 +130,8 @@ const Detail: React.FC<IProps> = ({}) => {
                                     .format(DEFAULT_DATE_TIME_FORMAT)
                                   }
                                   key="list-vertical-star-o"/>,
-                        <IconText icon={EyeOutlined} text="156" key="list-vertical-like-o"/>,
-                        <IconText icon={LikeOutlined} text="16" key="list-vertical-like-o"/>,
+                        <IconText icon={EyeOutlined} text={article.click} key="list-vertical-click-o"/>,
+                        <IconText icon={LikeOutlined} text={article.likeNumber} key="list-vertical-like-o"/>,
                         // <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
                       ]}
                     >
@@ -175,7 +195,8 @@ const Detail: React.FC<IProps> = ({}) => {
                   <div className="detailed-nav comm-box">
                     <div className={styles.navTitle}>文章目录</div>
                     <div className="toc-list">
-                      {tocify && tocify.tocItems.length ? tocify.render() : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
+                      {tocify && tocify.tocItems.length ? tocify.render() :
+                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}/>}
                     </div>
                   </div>
 

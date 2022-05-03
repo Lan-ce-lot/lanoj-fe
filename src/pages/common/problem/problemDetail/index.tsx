@@ -55,7 +55,7 @@ interface IState {
 // const
 const ProblemDetail: React.FC<IProps> = ({loading}) => {
   const navigate = useNavigate();
-  const {id} = useParams();
+  const {problemId} = useParams();
   const [width, setWidth] = useState(`50%`);
   const onClick = () => {
     setWidth(
@@ -93,13 +93,13 @@ const ProblemDetail: React.FC<IProps> = ({loading}) => {
             <Menu.Item key="mail"
 
             >
-              <Link to={`/problem/${id}`}>
+              <Link to={`/problem/${problemId}`}>
                 题目详情
               </Link>
             </Menu.Item>
             <Menu.Item key="app"
             >
-              <Link to={`/problem/${id}/submissions`}>
+              <Link to={`/problem/${problemId}/submissions`}>
                 我的提交
               </Link>
             </Menu.Item>

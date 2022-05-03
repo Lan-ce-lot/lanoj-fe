@@ -67,12 +67,13 @@ import {remoteRunCode} from "../../../../../api/common/run";
 import {useNavigate, useParams} from "react-router-dom";
 import loading from "../../../../../components/Loading";
 import Split from "@uiw/react-split";
+import {connect} from "react-redux";
 //import styles from './Editor.module.scss'
 const {Option} = Select;
 const {TabPane} = Tabs;
 
 interface IProps {
-  // loading: boolean;
+  loading?: boolean;
 }
 
 interface IState {
@@ -126,7 +127,7 @@ const languages = [
     label: 'Python', value: 'Python'
   },
 ]
-const Editor: React.FC<IProps> = ({}) => {
+const Editor: React.FC<IProps> = ({loading}) => {
   let {id} = useParams();
   const navigate = useNavigate();
   const [height, setHeight] = useState(`0%`);
@@ -146,8 +147,8 @@ const Editor: React.FC<IProps> = ({}) => {
     [value, setValue] = useState<string>(''),
     [theme, setTheme] = useState<string>('material'),
     [language, setLanguage] = useState<string>('C++'),
-    [loading, setLoading] = useState<boolean>(false)
-  const [form] = useForm()
+    // [loading, setLoading] = useState<boolean>(false)
+    [form] = useForm()
   const onThemeChange = (newTheme: string) => {
     setTheme(newTheme)
   }
@@ -167,10 +168,10 @@ const Editor: React.FC<IProps> = ({}) => {
       if (data.language === 'C++') {
         data.language = 'C_PLUS_PLUS'
       }
-      setLoading(true)
+      // setLoading(true)
       addSubmission(data).then((res) => {
         const {data} = res
-        setLoading(false)
+        // setLoading(false)
         if (data.code === 200) {
           message.success(data.msg);
           navigate('submissions')
@@ -191,13 +192,13 @@ const Editor: React.FC<IProps> = ({}) => {
       setHeight(`25%`)
     } else {
       if (value && value.length >= 7) {
-        setLoading(true)
+        // setLoading(true)
         remoteRunCode({
           ...form.getFieldsValue(true),
           submissionCode: value,
           language: language === 'C++' ? "C_PLUS_PLUS" : language
         }).then(res => {
-          setLoading(false)
+          // setLoading(false)
           const {data} = res.data
           if (res.data.code === 200) {
             form.setFieldsValue(data)
@@ -381,4 +382,9 @@ const Editor: React.FC<IProps> = ({}) => {
 
   )
 }
-export default Editor;
+
+const mapStateToProps = (state: any) => {
+  return {...state.app};
+};
+export default connect(mapStateToProps)(Editor)
+// export default Editor;

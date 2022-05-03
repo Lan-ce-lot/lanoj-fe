@@ -35,6 +35,16 @@ const UserDualAxes = () => {
       value: 470,
       count: 220,
     },
+    {
+      time: '2019-08',
+      value: 470,
+      count: 210,
+    },
+    {
+      time: '2019-09',
+      value: 470,
+      count: 220,
+    },
   ];
   const config = {
     data: [data, data],
@@ -54,6 +64,16 @@ const UserDualAxes = () => {
         geometry: 'line',
         smooth: true,
         color: '#5AD8A6',
+        point: {
+          size: 5,
+          shape: 'round',
+          // shape: 'diamond',
+          style: {
+            fill: 'white',
+            stroke: '#5AD8A6',
+            lineWidth: 2,
+          },
+        },
       },
     ],
     // 更改柱线交互，默认为 [{type: 'active-region'}]

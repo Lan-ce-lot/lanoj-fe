@@ -60,7 +60,7 @@ const ProblemTags: React.FC<IProps> = ({tagOnClick}) => {
         >
           {
             list?.map((it, key) => <Tag
-              onClick={tagOnClick.bind(null, it.name)}
+              onClick={tagOnClick.bind(null, it)}
               key={it.id} color={it.color}>{it.name}</Tag>)
           }
         </Space></Skeleton>

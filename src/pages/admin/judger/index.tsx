@@ -52,7 +52,7 @@ const Judger: React.FC<IProps> = ({}) => {
     {
       title: <span>id</span>,
       dataIndex: 'id',
-      width: '7%',
+      // width: '7%',
     },
     {
       title: <span>判题机名</span>,
@@ -70,41 +70,41 @@ const Judger: React.FC<IProps> = ({}) => {
         </>
       ),
     },
-    {
-      title: <span>Cpu核心数</span>,
-      render: (text: any, record: any) => {
-        return (
-          <>
-            1
-          </>
-
-        )
-      },
-    },
-    {
-      title: <span>判题个数</span>,
-      render: (text: any, record: any) => {
-        return (
-          <>
-            1
-          </>
-
-        )
-      },
-    },
-    {
-      title: <span>内存消耗</span>,
-      render: (text: any, record: any) => {
-        return (
-          <>
-          </>
-        )
-      },
-    },
+    // {
+    //   title: <span>Cpu核心数</span>,
+    //   render: (text: any, record: any) => {
+    //     return (
+    //       <>
+    //         1
+    //       </>
+    //
+    //     )
+    //   },
+    // },
+    // {
+    //   title: <span>判题个数</span>,
+    //   render: (text: any, record: any) => {
+    //     return (
+    //       <>
+    //         1
+    //       </>
+    //
+    //     )
+    //   },
+    // },
+    // {
+    //   title: <span>内存消耗</span>,
+    //   render: (text: any, record: any) => {
+    //     return (
+    //       <>
+    //       </>
+    //     )
+    //   },
+    // },
     {
       title: <span>创建时间</span>,
       dataIndex: 'createdAt',
-      width: '15%',
+      // width: '15%',
       render: (text: any, record: any) => {
         return (
           <>
@@ -116,7 +116,7 @@ const Judger: React.FC<IProps> = ({}) => {
     {
       title: '操作',
       fixed: 'right' as const,
-      width: '11%',
+      // width: '11%',
       render: (text: any, record: any) => {
         return (
           <>
@@ -273,7 +273,7 @@ const Judger: React.FC<IProps> = ({}) => {
           columns={columns}
           rowKey={(record) => '' + record.id!}
           loading={loading}
-          scroll={{x: 1100}}
+          scroll={{x: 900}}
           pagination={{
             total: total,
             pageSizeOptions: ["10", "20", "40"],
