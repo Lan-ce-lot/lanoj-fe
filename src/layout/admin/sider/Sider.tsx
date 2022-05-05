@@ -44,7 +44,7 @@ const Sider: React.FunctionComponent<SiderProps> = ({sidebarCollapsed, onCollaps
     >
       <div className={styles.brand}>
         <div className={styles.logo}>
-          <img alt="logo" src={'/logo192.png'}/>
+          <img alt="logo" src={'/logo.svg'}/>
           {!sidebarCollapsed && <h1>{'LANOJ Admin'}</h1>}
         </div>
       </div>

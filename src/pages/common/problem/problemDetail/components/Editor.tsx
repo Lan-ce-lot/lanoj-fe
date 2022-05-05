@@ -128,7 +128,7 @@ const languages = [
   },
 ]
 const Editor: React.FC<IProps> = ({loading}) => {
-  let {id} = useParams();
+  let {problemId} = useParams();
   const navigate = useNavigate();
   const [height, setHeight] = useState(`0%`);
   const onClick = () => {
@@ -156,12 +156,12 @@ const Editor: React.FC<IProps> = ({loading}) => {
     setLanguage(newLanguage)
     message.info(`${newLanguage}语言`)
   }
-  const problemId = parseInt(id!)
+  // const problemId = parseInt(problemId!)
   const onCodeSubmit = () => {
     if (value && value.length >= 7) {
       const data: ISubmissionProps = {
         language,
-        problemId,
+        problemId: Number(problemId),
         userId: store.getState().user.id,
         codeContent: value
       }
@@ -191,25 +191,29 @@ const Editor: React.FC<IProps> = ({loading}) => {
     if (height === `0%`) {
       setHeight(`25%`)
     } else {
-      if (value && value.length >= 7) {
-        // setLoading(true)
-        remoteRunCode({
-          ...form.getFieldsValue(true),
-          submissionCode: value,
-          language: language === 'C++' ? "C_PLUS_PLUS" : language
-        }).then(res => {
-          // setLoading(false)
-          const {data} = res.data
-          if (res.data.code === 200) {
-            form.setFieldsValue(data)
-            if (!data.condition || data.condition === 1) {
+      if (form.getFieldValue('stdIn') && form.getFieldValue('stdIn').length > 0) {
+        if (value && value.length >= 7) {
+          // setLoading(true)
+          remoteRunCode({
+            ...form.getFieldsValue(true),
+            submissionCode: value,
+            language: language === 'C++' ? "C_PLUS_PLUS" : language
+          }).then(res => {
+            // setLoading(false)
+            const {data} = res.data
+            if (res.data.code === 200) {
+              form.setFieldsValue(data)
+              if (!data.condition || data.condition === 1) {
 
-            } else {
+              } else {
+              }
             }
-          }
-        })
+          })
+        } else {
+          message.warn('代码长度不少于7字符')
+        }
       } else {
-        message.warn('代码长度不少于7字符')
+        message.warn('请填入标准输入')
       }
     }
 
@@ -217,9 +221,6 @@ const Editor: React.FC<IProps> = ({loading}) => {
 
   return (
     <>
-      {/*<div style={{marginBottom: 10}}>*/}
-      {/*  <Button type="primary" onClick={onClick.bind(null)}>{height === `0%` ? '隐藏菜单' : '展示菜单'}</Button>*/}
-      {/*</div>*/}
       <Split
         lineBar
         mode="vertical" style={{

@@ -10,11 +10,16 @@ import GlobalFooter from "../../../layout/common/footer/Footer";
 
 import styles from './index.module.scss'
 import {Link, useNavigate} from "react-router-dom";
-import {CheckCircleOutlined, LockOutlined, UserOutlined} from "@ant-design/icons";
+import {CheckCircleOutlined, LockOutlined, MailOutlined, UserOutlined} from "@ant-design/icons";
 import {getCheckCodeInfo, userSubmitLogin} from "../../../api/common/login";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import {userLogin, setUserToken} from "../../../store/actions";
+// @ts-ignore
+import Lottie from 'react-lottie';
+import * as animationData from './Blogging.json'
+import {userSubmitRegister} from "../../../api/common/register";
+import {validateMessages} from "../../../config/config";
 
 interface IProps {
   token?: string;
@@ -31,7 +36,8 @@ const Login: React.FC<IProps> = ({token, onSetUserToken, loading}) => {
   const navigate = useNavigate()
   const [form] = Form.useForm();
   const [checkCode, setCheckCode] = useState('')
-  const [checkCodeKey, setCheckCodeKey] = useState('')
+  const [checkCodeKey, setCheckCodeKey] = useState(''),
+    [status, setStatus] = useState<boolean>(true)// true:login, false:register
   // 获取验证码信息
 
   const getCheckCode = () => {
@@ -48,104 +54,272 @@ const Login: React.FC<IProps> = ({token, onSetUserToken, loading}) => {
   useEffect(() => {
     // setTimeout(() => getCheckCode(), 5000)
     getCheckCode()
+    form.resetFields()
     if (token) {
       navigate('/home')
     }
-  }, [])
+  }, [status])
   const handleOk = (values: any) => {
     // form.setFieldsValue
-    userSubmitLogin({...form.getFieldsValue(true), checkCodeKey}).then(
-      (res) => {
-        const {data} = res;
-        if (data.code === 200) {
-          message.success(data.msg);
-          onSetUserToken(data.data)
-          navigate('/home')
-        } else {
-          message.error(data.msg);
+    if (status) {
+      userSubmitLogin({...form.getFieldsValue(true), checkCodeKey}).then(
+        (res) => {
+          const {data} = res;
+          // getCheckCode()
+          if (data.code === 200) {
+            message.success(data.msg);
+            onSetUserToken(data.data)
+            navigate('/home')
+          } else {
+            message.error(data.msg);
+          }
         }
-      }
-    )
+      )
+    } else {
+      userSubmitRegister({...form.getFieldsValue(true), checkCodeKey}).then(
+        (res) => {
+          const {data} = res;
+          // getCheckCode()
+          if (data.code === 200) {
+            message.success(data.msg);
+            userSubmitLogin({
+              ...form.getFieldsValue(['username', 'password', 'email', 'checkCode']),
+              checkCodeKey
+            }).then(
+              res => {
+                onSetUserToken(res.data.data)
+                navigate('/home')
+              }
+            )
+          } else {
+            message.error(data.msg);
+          }
+        }
+      )
+    }
+
   }
 
   return (<>
-    <Fragment>
-      <div className={styles.form}>
-        <div className={styles.logo}>
-          <img alt="logo" src={'./hui.png'}/>
-          <span>{'LANOJ'}</span>
-        </div>
-        <Form
-          form={form}
-          onFinish={handleOk}
-        >
-          <Form.Item name="username"
-                     rules={[{required: true, message: '请输入用户名'}]}
-                     hasFeedback
-          >
-            <Input
-              prefix={<UserOutlined/>}
-              placeholder={`用户名`}
-              style={{color: 'rgb(0,0,0,.25'}}
-            />
-          </Form.Item>
 
-          <Form.Item name="password" rules={[{required: true, message: '请输入密码'}]} hasFeedback>
-            <Input type='password'
-                   style={{color: 'rgb(0,0,0,.25'}}
-                   prefix={<LockOutlined/>}
-                   placeholder={`密码`}/>
-          </Form.Item>
+
+    <div className={styles.bigContent}>
+      <div className={styles.formContent}>
+        <div className={styles.right}>
+
+          <Lottie options={
+            {
+              loop: true,
+              autoplay: true,
+              animationData: animationData,
+              rendererSettings: {
+                preserveAspectRatio: 'xMidYMid slice'
+              }
+            }
+          }
+                  height={280}
+                  width={350}
+          />
+        </div>
+
+        <div className={styles.form}>
+
+          <div className={styles.logo}>
+            <img alt="logo" src={'/logo.svg'}/>
+            <span>{'LANOJ在线评测系统'}</span>
+          </div>
           {
-            <Row>
-              <Col span={11}>
-                <Form.Item
-                  rules={[{required: true, message: '请输入验证码!'}]}
-                  name="checkCode"
-                  hasFeedback
+            status ?
+              <Form
+                validateMessages={validateMessages}
+                form={form}
+                onFinish={handleOk}
+              >
+                <Form.Item name="username"
+                           rules={[{required: true, message: '请输入用户名'}]}
+                           hasFeedback
                 >
                   <Input
-                    id="checkCode"
-                    // size="large"
-                    prefix={<CheckCircleOutlined/>}
+                    prefix={<UserOutlined/>}
+                    placeholder={`用户名`}
                     style={{color: 'rgb(0,0,0,.25'}}
-                    placeholder="验证码"
                   />
                 </Form.Item>
-              </Col>
-              <Col span={11}>
-                <Image
-                  preview={false}
-                  placeholder
-                  src={checkCode}
-                  alt={'checkCode'}
-                  style={{marginLeft: 10}}
-                  onClick={() => onCheckCodeClick()}/>
-              </Col>
-            </Row>
-          }
-          <Row>
-            <Button
-              type="primary"
-              htmlType="submit"
-              loading={loading}
-            >
-              登录
-            </Button>
 
-            <p>
+                <Form.Item name="password" rules={[{required: true, message: '请输入密码'}]} hasFeedback>
+                  <Input type='password'
+                         style={{color: 'rgb(0,0,0,.25'}}
+                         prefix={<LockOutlined/>}
+                         placeholder={`密码`}/>
+                </Form.Item>
+                {
+                  <Row>
+                    <Col span={11}>
+                      <Form.Item
+                        rules={[{required: true, message: '请输入验证码!'}]}
+                        name="checkCode"
+                        hasFeedback
+                      >
+                        <Input
+                          id="checkCode"
+                          // size="large"
+                          prefix={<CheckCircleOutlined/>}
+                          style={{color: 'rgb(0,0,0,.25'}}
+                          placeholder="验证码"
+                        />
+                      </Form.Item>
+                    </Col>
+                    <Col span={11}>
+                      <Image
+                        preview={false}
+                        placeholder
+                        src={checkCode}
+                        alt={'checkCode'}
+                        style={{marginLeft: 10}}
+                        onClick={() => onCheckCodeClick()}/>
+                    </Col>
+                  </Row>
+                }
+                <Row>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    loading={loading}
+                  >
+                    登录
+                  </Button>
+
+                  <p>
                 <span className="margin-right">
-                  <Link to={'/register'}
-                  >没有账号?立即注册</Link>
+                  <a
+                    // href=""
+                    onClick={() => {
+                      setStatus((v) => !v)
+                    }}
+                  >
+                    没有账号?立即注册
+                  </a>
+                  {/*<Link to={'/register'}*/}
+                  {/*>没有账号?立即注册</Link>*/}
                 </span>
-            </p>
-          </Row>
-        </Form>
+                  </p>
+                </Row>
+              </Form>
+              :
+              <Form
+                validateMessages={validateMessages}
+                form={form}
+                onFinish={handleOk}
+              >
+                <Form.Item name="username"
+                           rules={[{required: true, message: '请输入用户名'}]}
+                           hasFeedback
+                >
+                  <Input
+                    prefix={<UserOutlined/>}
+                    placeholder={`用户名`}
+                    style={{color: 'rgb(0,0,0,.25'}}
+                  />
+                </Form.Item>
+
+                <Form.Item name="email"
+                           rules={[
+                             {required: true, message: '请输入邮箱'},
+                             {type: 'email'}
+                           ]}
+                           hasFeedback
+                >
+                  <Input
+                    prefix={<MailOutlined/>}
+                    placeholder={`邮箱`}
+                    style={{color: 'rgb(0,0,0,.25'}}
+                  />
+                </Form.Item>
+                <Form.Item name="password" rules={[{required: true, message: '请输入密码'}]} hasFeedback>
+                  <Input type='password'
+                         style={{color: 'rgb(0,0,0,.25'}}
+                         prefix={<LockOutlined/>}
+                         placeholder={`密码`}/>
+                </Form.Item>
+                <Form.Item name="confirmPassword" rules={[{required: true, message: '请输入确认密码'},
+                  ({getFieldValue}: any) => ({
+                    validator(rule, value) {
+                      if (!value || getFieldValue('password') === value) {
+                        return Promise.resolve()
+                      }
+                      return Promise.reject("两次密码输入不一致")
+                    }
+                  })
+
+                ]} hasFeedback>
+                  <Input type='password'
+                         style={{color: 'rgb(0,0,0,.25'}}
+                         prefix={<LockOutlined/>}
+                         placeholder={`确认密码`}/>
+                </Form.Item>
+                {
+                  <Row>
+                    <Col span={11}>
+                      <Form.Item
+                        rules={[{required: true, message: '请输入验证码!'}]}
+                        name="checkCode"
+                        hasFeedback
+                      >
+                        <Input
+                          id="checkCode"
+                          prefix={<CheckCircleOutlined/>}
+                          style={{color: 'rgb(0,0,0,.25'}}
+                          placeholder="验证码"
+                        />
+                      </Form.Item>
+                    </Col>
+                    <Col span={11}>
+                      {
+                        <img
+                          src={checkCode}
+                          alt={'checkCode'}
+                          style={{marginLeft: 10}}
+                          onClick={() => onCheckCodeClick()}
+                        />
+                      }
+                    </Col>
+                  </Row>
+                }
+                <Row>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                  >
+                    <span>注册</span>
+                  </Button>
+
+                  <p>
+                <span className="margin-right">
+                                    <a
+                                      // href=""
+                                      onClick={() => {
+                                        setStatus((v) => !v)
+                                      }}
+                                    >
+                    已有账号?立即登录
+                  </a>
+                  {/*<Link to={'/login'}*/}
+                  {/*>已有账号?立即登录</Link>*/}
+                </span>
+                  </p>
+                </Row>
+              </Form>
+          }
+
+
+        </div>
+
       </div>
+
       <div className={styles.footer}>
         <GlobalFooter/>
       </div>
-    </Fragment>
+    </div>
   </>)
 }
 

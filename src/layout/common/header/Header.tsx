@@ -142,7 +142,7 @@ const Header: React.FC<HeaderProps> = ({onDelUserToken, token}) => {
             <Link to={'/'}>
               <div className={styles.imgWrap}>
                 <img alt="logo"
-                     src={'/logo192.png'}
+                     src={'/logo.svg'}
                 />
                 <div className={styles.text}>
                   LANOJ

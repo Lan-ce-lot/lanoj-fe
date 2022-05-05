@@ -198,7 +198,10 @@ const ProblemSubmissions: React.FC<IProps> = ({}) => {
                       column={2} bordered>
           <Descriptions.Item
             label="提交时间">{moment(currentRow?.createdAt).format(DEFAULT_DATE_TIME_FORMAT)}</Descriptions.Item>
-          <Descriptions.Item label="判题状态"><Tag>{currentRow.judgeCondition}</Tag></Descriptions.Item>
+          <Descriptions.Item label="判题状态"><Tag
+            {...JudgeConditionMap[currentRow.judgeCondition]}>
+            {JudgeConditionMap[currentRow.judgeCondition].name}
+          </Tag></Descriptions.Item>
           <Descriptions.Item label="运行时间">{currentRow.timeCost}ms</Descriptions.Item>
           <Descriptions.Item label="运行内存">{currentRow.memoryCost}KB</Descriptions.Item>
           <Descriptions.Item label="提交语言">
@@ -209,7 +212,7 @@ const ProblemSubmissions: React.FC<IProps> = ({}) => {
           </Descriptions.Item>
           <Descriptions.Item label="评测机" span={2}>
             {
-              currentRow.judgerId
+              currentRow.judgerName
             }
           </Descriptions.Item>
 
@@ -217,8 +220,10 @@ const ProblemSubmissions: React.FC<IProps> = ({}) => {
             {
               currentRow.judgeResult.judgeResults.map((item: any, index: number) => {
                 return (<Tooltip title={`测试点 #${index + 1}`} key={item.id}>
-
-                  <Tag>{item.message}</Tag>
+                  <Tag
+                    {...JudgeConditionMap[item.message]}>
+                    {JudgeConditionMap[item.message].abbreviation}
+                  </Tag>
                 </Tooltip>)
               })
             }

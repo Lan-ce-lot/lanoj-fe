@@ -1,13 +1,54 @@
+.bigContent {
+  height: 100vh;
+  //height: 100%;
+  width: 100%;
+  background-image: url('../../../../public/svg/scattered-forcefields.svg');
+  //background-color: #61dafb;
+}
 
-.form {
+.formContent {
+  display: flex;
   position: absolute;
   top: 45%;
   left: 50%;
-  margin: -160px 0 0 -160px;
-  width: 320px;
-  height: 340px;
+  margin: -220px 0 0 -350px;
+  width: 700px;
+  height: 460px;
+  background-color: #ffffff;
+  //padding: 36px;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.2);
+}
+
+.right {
+  padding-top: 50px;
+  width: 50%;
+  border-right: 2px solid #eef;
+  //background-color: #ffffff;
+  //position: absolute;
+  //top: 45%;
+  //left: 50%;
+  //margin: -160px 0 0 -160px;
+  //width: 320px;
+  //height: 340px;
+  //padding: 36px;
+  //box-shadow: 0 0 100px rgba(0, 0, 0, 0.08);
+  //
+  //button {
+  //  width: 100%;
+  //}
+}
+
+.form {
+  width: 50%;
+  //position: absolute;
+  //top: 45%;
+  //left: 50%;
+  //margin: -160px 0 0 -160px;
+  //width: 320px;
+  //height: 340px;
   padding: 36px;
-  box-shadow: 0 0 100px rgba(0, 0, 0, 0.08);
+  //background-color: #ffffff;
+  //box-shadow: 0 0 100px rgba(0, 0, 0, 0.08);
 
   button {
     width: 100%;
@@ -43,7 +84,7 @@
     text-transform: uppercase;
     display: inline-block;
     font-weight: 700;
-    color:  #1890ff;
+    color: #1890ff;
 
     background-image: -webkit-gradient(
         linear,

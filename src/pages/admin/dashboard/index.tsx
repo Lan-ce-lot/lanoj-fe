@@ -17,7 +17,7 @@ import TagWordCloud from "../problem/ProblemTag/conponents/TagWordCloud";
 import SubmissionPie from "./charts/SubmissionPie";
 import {getHomeCount, IHomeCount} from "../../../api/admin/home";
 import store from "../../../store";
-import MixChart from "./components/MixChart";
+import MixChart from "./charts/MixChart";
 
 interface indexProps {
 

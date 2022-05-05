@@ -75,7 +75,7 @@ const Register: React.FC<IProps> = ({onSetUserToken}) => {
     <Fragment>
       <div className={styles.form}>
         <div className={styles.logo}>
-          <img alt="logo" src={'./hui.png'}/>
+          <img alt="logo" src={'/logo.svg'}/>
           <span>{'LANOJ'}</span>
         </div>
         <Form

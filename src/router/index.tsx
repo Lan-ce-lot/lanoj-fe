@@ -31,17 +31,7 @@ const router: any[] = [
   adminRouter,
   {
     path: "/test",
-    element: <ProblemLayout/>,
-    children: [
-      {
-        index: true,
-        element: <Test/>
-      },
-      {
-        path: ":id",
-        element: <Test/>
-      },
-    ]
+    element: <Test/>,
   },
   {
     path: "/problem/:problemId",

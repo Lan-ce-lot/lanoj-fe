@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {MyRouter} from './router';
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter as Router} from "react-router-dom";
 import {Provider} from "react-redux";
 import store from "./store";
 import Loading from "./components/Loading";
@@ -37,13 +37,13 @@ const App: React.FunctionComponent<AppProps> = (props) => {
     <Provider store={store}>
       <ConfigProvider locale={zhCN}>
 
-        <BrowserRouter>
+        <Router>
 
           {/*<Loader />*/}
           <Loading/>
           <MyRouter/>
 
-        </BrowserRouter>
+        </Router>
 
       </ConfigProvider>
     </Provider>

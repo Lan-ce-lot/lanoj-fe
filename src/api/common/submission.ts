@@ -43,4 +43,16 @@ export const getSubmissionList = (params: ISubmissionQuery) => {
   )
 }
 
-
+// 获取某个时间区间内的提交统计
+export const getSysRecentSubmission = (begin: string, end: string) => {
+  return request.get(
+    `/submission/sys/recent/submission/`,
+    {
+      params: {
+        begin: begin,
+        end: end,
+        // uid: uid
+      }
+    }
+  )
+}

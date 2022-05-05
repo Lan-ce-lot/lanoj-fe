@@ -39,7 +39,19 @@ export const getUserSubmissionResult = (params: { id: number }) => {
     }
   )
 }
-
+// 获取某个时间区间内的提交统计
+export const getRecentSubmission = (begin: string, end: string, userId: number | null = null) => {
+  return request.get(
+    `/submission/user/recent/submission/${userId}`,
+    {
+      params: {
+        begin: begin,
+        end: end,
+        // uid: uid
+      }
+    }
+  )
+}
 
 /**
  * 用户ac题目
